@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 400000}
+  - component: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: Gallery Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13701ee08ffb64da28140fe3643496d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useThread: 1
+  links:
+  - diagram: {fileID: 11400000, guid: c0058baa47af04b27bf754e2e61c9d2d, type: 2}
+    materials:
+    - {fileID: 2100000, guid: f930d1e89bb7b457e9d639378a9e3b58, type: 2}
+    - {fileID: 2100000, guid: c49179ace5718477482982c09b60f567, type: 2}
+    textureSettings:
+      width: 256
+      height: 256
+      mipmap: 1
+      linear: 0
+      normalFormat: 0
+      wrapMode: 0
+      filterMode: 2
+      anisoLevel: 1
+  - diagram: {fileID: 11400000, guid: 18c6f54b4eac6456895eff20c0d8cc86, type: 2}
+    materials:
+    - {fileID: 2100000, guid: f2bd63bebaae74904ab7d39d2669da34, type: 2}
+    textureSettings:
+      width: 512
+      height: 512
+      mipmap: 1
+      linear: 0
+      normalFormat: 0
+      wrapMode: 0
+      filterMode: 2
+      anisoLevel: 9
+  - diagram: {fileID: 11400000, guid: a68d27cf4e8444297b7805e2572ef8e3, type: 2}
+    materials:
+    - {fileID: 2100000, guid: 051d3d27ef9e1447aac451dc916b18b1, type: 2}
+    textureSettings:
+      width: 512
+      height: 512
+      mipmap: 1
+      linear: 0
+      normalFormat: 0
+      wrapMode: 0
+      filterMode: 2
+      anisoLevel: 9
+  - diagram: {fileID: 11400000, guid: 2fdcb7beb87e8493fa159049011881b0, type: 2}
+    materials:
+    - {fileID: 2100000, guid: 59725d1921f0246edb531661569792cc, type: 2}
+    textureSettings:
+      width: 512
+      height: 512
+      mipmap: 1
+      linear: 1
+      normalFormat: 0
+      wrapMode: 0
+      filterMode: 2
+      anisoLevel: 9
+  - diagram: {fileID: 11400000, guid: 27aa414d045c54dd3bb05b8d3d34e951, type: 2}
+    materials:
+    - {fileID: 2100000, guid: 59725d1921f0246edb531661569792cc, type: 2}
+    - {fileID: 2100000, guid: f50fea2a3808d44dd990d358ce864f19, type: 2}
+    textureSettings:
+      width: 64
+      height: 64
+      mipmap: 0
+      linear: 0
+      normalFormat: 0
+      wrapMode: 1
+      filterMode: 1
+      anisoLevel: 1
+  - diagram: {fileID: 11400000, guid: 5867b93c90c354107a9af254b76e1779, type: 2}
+    materials:
+    - {fileID: 2100000, guid: f50fea2a3808d44dd990d358ce864f19, type: 2}
+    textureSettings:
+      width: 512
+      height: 512
+      mipmap: 1
+      linear: 1
+      normalFormat: 3
+      wrapMode: 1
+      filterMode: 2
+      anisoLevel: 1
+  - diagram: {fileID: 11400000, guid: d6fd1ade219384a7b9a456e26892693a, type: 2}
+    materials:
+    - {fileID: 2100000, guid: dec8f1a1c80b540278019ecf281253fd, type: 2}
+    textureSettings:
+      width: 512
+      height: 512
+      mipmap: 1
+      linear: 0
+      normalFormat: 0
+      wrapMode: 0
+      filterMode: 2
+      anisoLevel: 9
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabAsset: 1
