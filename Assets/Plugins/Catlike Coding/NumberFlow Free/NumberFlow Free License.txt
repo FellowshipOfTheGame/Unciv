@@ -1,0 +1,20 @@
+// Copyright 2013, Catlike Coding, http://catlikecoding.com
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+Anyone is allowed to use NumberFlow Free in non-commercial applications.
+
+If you’d like to use NumberFlow in commercial applications and get access to all source code, you can buy per-seat licenses on the Unity Asset Store via
+
+https://www.assetstore.unity3d.com/#/content/12902
+
+Buying licenses also helps me - the developer - pay the bills. I consider this a good thing.
+
+Jasper Flick
+catlikecoding.com
