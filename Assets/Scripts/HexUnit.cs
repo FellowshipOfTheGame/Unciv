@@ -43,18 +43,64 @@ public class HexUnit : MonoBehaviour {
 		}
 	}
 
+    /// <summary>
+    /// INICIO DOS VALORES ESPECICOS; 
+    /// </summary>
 	public virtual int Speed {
 		get {
 			return 24;
 		}
 	}
 
-	public int VisionRange {
+    //bloco de atributos pro combate;
+    public int ATK;
+    public int SPD;
+    public int HitP;
+    public int DEF;
+    public int RNG;
+
+    //atributo de controle;
+    public int Faccao; //0 representa a faccao do jogador, 1 sao os barbaros, 2 as faccoes menores;
+
+    public virtual void Attack(HexUnit Target) { 
+       //verificar se a distancia esta adequada para o ataque ao alvo;
+       var DMG = this.ATK*(1-Target.DEF);
+        Target.HitP-=DMG; 
+        Target.UpdateHP();
+        if(Target.HitP>0) { //se o alvo sobreviveu o ataque tem chances de revidar;
+            //verifica se o contra-ataque tem alcance;
+            DMG = Target.ATK*(1-this.DEF);
+            this.HitP-=DMG;
+            this.UpdateHP();
+        }
+        if(this.HitP>0&&Target.HitP>0) { //se ambos ainda estao vivos, iniciar segunda rodada;
+            if(this.SPD>Target.SPD+5) { //se minha velocidade eh maior que 5 a mais do que meu inimigo, eu ataco denovo;
+                DMG=this.ATK*(1-Target.DEF);
+                Target.HitP-=DMG;
+                Target.UpdateHP();
+            }
+            else if(Target.SPD>this.SPD+5) { //se o alvo tem mais velocidade, ele tem direito ao ataque extra;
+                //verifica distancia mais uma vez;
+                DMG = Target.ATK*(1-this.DEF);
+                this.HitP-=DMG;
+                this.UpdateHP();
+            }
+        }
+    }
+
+    public void UpdateHP() { 
+        //atualiza a renderizacao das tropas, e remove unidades caso a vida va para 0;
+    }
+
+	public virtual int VisionRange {
 		get {
 			return 3;
 		}
 	}
-
+    /// <summary>
+    /// FIM DOS VALORES ESPECIFICOS
+    /// </summary>
+    
 	float orientation;
 
 	List<HexCell> pathToTravel;
