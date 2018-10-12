@@ -8,7 +8,7 @@ public class HexUnit : MonoBehaviour {
 	const float rotationSpeed = 180f;
 	const float travelSpeed = 4f;
 
-    public bool CanMove=true;
+    
 
 	public static HexUnit unitPrefab;
 
@@ -52,12 +52,14 @@ public class HexUnit : MonoBehaviour {
 		}
 	}
 
-    //bloco de atributos pro combate;
+    //bloco de atributos individuais;
     public int ATK;
     public int SPD;
     public int HitP;
     public int DEF;
     public int RNG;
+    public bool canATK=true;
+    public bool CanMove=true;
 
     //atributo de controle;
     public int Faccao; //0 representa a faccao do jogador, 1 sao os barbaros, 2 as faccoes menores;
@@ -109,9 +111,18 @@ public class HexUnit : MonoBehaviour {
 		transform.localPosition = location.Position;
 	}
 
-	public bool IsValidDestination (HexCell cell) {
-		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit;
+	public virtual bool IsValidDestination (HexCell cell) {
+		return cell.IsExplored && !cell.IsUnderwater && (isAtkTgt(cell) || !cell.Unit);
 	}
+
+    private bool isAtkTgt(HexCell cell){ 
+        if(cell.Unit)
+            if(cell.Unit.Faccao != this.Faccao && this.canATK) { 
+                return true;
+            }
+        return false;
+
+    }
 
 	public void Travel (List<HexCell> path) {
 		location.Unit = null;
