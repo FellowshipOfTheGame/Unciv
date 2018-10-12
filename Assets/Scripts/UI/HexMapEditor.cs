@@ -6,6 +6,9 @@ public class HexMapEditor : MonoBehaviour {
 
 	public HexGrid hexGrid;
 
+	//reference to the city menu deactivated
+	public GameObject cityMenu;
+
 	public Material terrainMaterial;
 
 	int activeElevation;
@@ -20,6 +23,8 @@ public class HexMapEditor : MonoBehaviour {
 	bool applyElevation = true;
 	bool applyWaterLevel = true;
 
+	bool canSpawn;
+
 	bool applyUrbanLevel, applyFarmLevel, applyPlantLevel, applySpecialIndex;
 
 	enum OptionalToggle {
@@ -31,6 +36,7 @@ public class HexMapEditor : MonoBehaviour {
 	bool isDrag;
 	HexDirection dragDirection;
 	HexCell previousCell;
+	HexCell selectedCity;
 
 	public void SetTerrainTypeIndex (int index) {
 		activeTerrainTypeIndex = index;
@@ -117,9 +123,12 @@ public class HexMapEditor : MonoBehaviour {
 		terrainMaterial.EnableKeyword("GRID_ON");
 		Shader.DisableKeyword("HEX_MAP_EDIT_MODE");
 		SetEditMode(false);
+		canSpawn = false;
+		selectedCity = null;
 	}
 
 	void Update () {
+		HexCell aux;
 		if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (Input.GetMouseButton(0)) {
 				HandleInput();
@@ -134,9 +143,41 @@ public class HexMapEditor : MonoBehaviour {
 					DestroyUnit();
 				}
 				else {
-					CreateUnit();
+					CreateUnit(GetCellUnderCursor());
 				}
 				return;
+			}
+			//Checks if the right button of the mouse was press on an cell with a pyramid (city)
+			if (Input.GetMouseButtonDown(1) && (aux = GetCellUnderCursor()).SpecialIndex == 2) {
+				//checks if the right click was on the same city, if yes deactive the menu
+				if (selectedCity != aux) {
+					//if the player selects another city, simply change the selectedCity (that shall includes changind the menu)
+					selectedCity = aux;
+					cityMenu.SetActive (true);
+				} else { 
+					//else, sets the city menu on and off
+					if (cityMenu.activeSelf)
+						cityMenu.SetActive (false);
+					else
+						cityMenu.SetActive (true);
+				}
+			}
+		}
+		//if an unity can be spawned
+		if (canSpawn == true) {
+			//when right click on a cell
+			if (Input.GetMouseButtonDown (1)) {
+				//get the cell
+				HexCell aux2 = GetCellUnderCursor();
+				//search the selected cell beetween selectedcity neighbors, disabling the highlight
+				for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
+					//if the correct cell is found, instantiate an unit there
+					if (selectedCity.GetNeighbor (d) == aux2 && !(aux2 = selectedCity.GetNeighbor (d)).Unit && !aux2.IsUnderwater && aux2.GetElevationDifference(d) < 2) {
+						CreateUnit (aux2);
+					}
+					selectedCity.GetNeighbor (d).DisableHighlight ();
+				}
+				canSpawn = false;
 			}
 		}
 		previousCell = null;
@@ -147,8 +188,18 @@ public class HexMapEditor : MonoBehaviour {
 			hexGrid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
 	}
 
-	void CreateUnit () {
-		HexCell cell = GetCellUnderCursor();
+	public void SpawnUnit() {
+		//highlight all available cells around the city
+		for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
+			if (!selectedCity.GetNeighbor(d).Unit && !selectedCity.GetNeighbor(d).IsUnderwater && selectedCity.GetElevationDifference(d) < 2)
+				selectedCity.GetNeighbor (d).EnableHighlight (Color.blue);
+		}
+		//stores the information that an unity can be spawned
+		canSpawn = true;
+		return;
+	}
+
+	void CreateUnit (HexCell cell) {
 		if (cell && !cell.Unit) {
 			hexGrid.AddUnit(Instantiate(HexUnit.unitPrefab), cell, Random.Range(0f, 360f));
 		}
