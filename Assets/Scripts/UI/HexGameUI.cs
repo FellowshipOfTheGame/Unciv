@@ -5,9 +5,13 @@ public class HexGameUI : MonoBehaviour {
 
 	public HexGrid grid;
 
+	public HexMapEditor hexMap;
+
 	HexCell currentCell;
 
 	HexUnit selectedUnit;
+
+	HexCity selectedCity;
 
 	public void SetEditMode (bool toggle) {
 		enabled = !toggle;
@@ -23,23 +27,52 @@ public class HexGameUI : MonoBehaviour {
 
 	void Update () {
 		if (!EventSystem.current.IsPointerOverGameObject()) {
-			if (Input.GetMouseButtonDown(0)) {
-				DoSelection();
-			}
-			else if (selectedUnit && selectedUnit.CanMove) {
-				if (Input.GetMouseButtonDown(1)) {
-					DoMove();
-				}
+			if (selectedUnit && selectedUnit.CanMove) {
+				if (Input.GetMouseButtonDown (0)) {
+					DoMove ();
+				} 
 				else {
-					DoPathfinding();
+					DoPathfinding ();
+				}
+			}
+			if (Input.GetMouseButtonDown (0)) {
+				selectedCity = null;
+				DoUnitSelection ();
+			} 
+			//checks the right button
+			else if (Input.GetMouseButtonDown (1)) {
+				Debug.Log ("Entrou");
+				//selects the city
+				DoCitySelection (selectedCity);
+				//if successfull selected:
+				if (selectedCity) {
+					//active if deactivated, deactive if actvated;
+					if (!selectedCity.IsCityMenuActivated) {
+						selectedCity.ActiveCityMenu ();
+					} else {
+						selectedCity.DeactiveCityMenu ();
+					}
 				}
 			}
 		}
-        if(Input.GetButtonDown("Jump"))
-            grid.Pass();
+		if(Input.GetButtonDown("Jump"))
+			grid.Pass();
 	}
 
-	void DoSelection () {
+	//selects the actual city and disables any different city menu
+	void DoCitySelection (HexCity city) {
+		grid.ClearPath ();
+		UpdateCurrentCell ();
+		if (city && currentCell.city != city) {
+			Debug.Log ("Different cities");
+			city.DeactiveCityMenu();
+		}
+		if (currentCell) {
+			selectedCity = currentCell.city;
+		}
+	}
+
+	void DoUnitSelection () {
 		grid.ClearPath();
 		UpdateCurrentCell();
 		if (currentCell) {

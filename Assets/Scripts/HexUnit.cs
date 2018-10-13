@@ -8,7 +8,7 @@ public class HexUnit : MonoBehaviour {
 	const float rotationSpeed = 180f;
 	const float travelSpeed = 4f;
 
-    public bool CanMove=true;
+	public bool CanMove=true;
 
 	public static HexUnit unitPrefab;
 
@@ -43,64 +43,64 @@ public class HexUnit : MonoBehaviour {
 		}
 	}
 
-    /// <summary>
-    /// INICIO DOS VALORES ESPECICOS; 
-    /// </summary>
+	/// <summary>
+	/// INICIO DOS VALORES ESPECICOS; 
+	/// </summary>
 	public virtual int Speed {
 		get {
 			return 24;
 		}
 	}
 
-    //bloco de atributos pro combate;
-    public int ATK;
-    public int SPD;
-    public int HitP;
-    public int DEF;
-    public int RNG;
+	//bloco de atributos pro combate;
+	public int ATK;
+	public int SPD;
+	public int HitP;
+	public int DEF;
+	public int RNG;
 
-    //atributo de controle;
-    public int Faccao; //0 representa a faccao do jogador, 1 sao os barbaros, 2 as faccoes menores;
+	//atributo de controle;
+	public int Faccao; //0 representa a faccao do jogador, 1 sao os barbaros, 2 as faccoes menores;
 
-    public virtual void Attack(HexUnit Target) { 
-       //verificar se a distancia esta adequada para o ataque ao alvo;
-       var DMG = this.ATK*(1-Target.DEF);
-        Target.HitP-=DMG; 
-        Target.UpdateHP();
-        if(Target.HitP>0) { //se o alvo sobreviveu o ataque tem chances de revidar;
-            //verifica se o contra-ataque tem alcance;
-            DMG = Target.ATK*(1-this.DEF);
-            this.HitP-=DMG;
-            this.UpdateHP();
-        }
-        if(this.HitP>0&&Target.HitP>0) { //se ambos ainda estao vivos, iniciar segunda rodada;
-            if(this.SPD>Target.SPD+5) { //se minha velocidade eh maior que 5 a mais do que meu inimigo, eu ataco denovo;
-                DMG=this.ATK*(1-Target.DEF);
-                Target.HitP-=DMG;
-                Target.UpdateHP();
-            }
-            else if(Target.SPD>this.SPD+5) { //se o alvo tem mais velocidade, ele tem direito ao ataque extra;
-                //verifica distancia mais uma vez;
-                DMG = Target.ATK*(1-this.DEF);
-                this.HitP-=DMG;
-                this.UpdateHP();
-            }
-        }
-    }
+	public virtual void Attack(HexUnit Target) { 
+		//verificar se a distancia esta adequada para o ataque ao alvo;
+		var DMG = this.ATK*(1-Target.DEF);
+		Target.HitP-=DMG; 
+		Target.UpdateHP();
+		if(Target.HitP>0) { //se o alvo sobreviveu o ataque tem chances de revidar;
+			//verifica se o contra-ataque tem alcance;
+			DMG = Target.ATK*(1-this.DEF);
+			this.HitP-=DMG;
+			this.UpdateHP();
+		}
+		if(this.HitP>0&&Target.HitP>0) { //se ambos ainda estao vivos, iniciar segunda rodada;
+			if(this.SPD>Target.SPD+5) { //se minha velocidade eh maior que 5 a mais do que meu inimigo, eu ataco denovo;
+				DMG=this.ATK*(1-Target.DEF);
+				Target.HitP-=DMG;
+				Target.UpdateHP();
+			}
+			else if(Target.SPD>this.SPD+5) { //se o alvo tem mais velocidade, ele tem direito ao ataque extra;
+				//verifica distancia mais uma vez;
+				DMG = Target.ATK*(1-this.DEF);
+				this.HitP-=DMG;
+				this.UpdateHP();
+			}
+		}
+	}
 
-    public void UpdateHP() { 
-        //atualiza a renderizacao das tropas, e remove unidades caso a vida va para 0;
-    }
+	public void UpdateHP() { 
+		//atualiza a renderizacao das tropas, e remove unidades caso a vida va para 0;
+	}
 
 	public virtual int VisionRange {
 		get {
 			return 3;
 		}
 	}
-    /// <summary>
-    /// FIM DOS VALORES ESPECIFICOS
-    /// </summary>
-    
+	/// <summary>
+	/// FIM DOS VALORES ESPECIFICOS
+	/// </summary>
+
 	float orientation;
 
 	List<HexCell> pathToTravel;
@@ -120,7 +120,7 @@ public class HexUnit : MonoBehaviour {
 		pathToTravel = path;
 		StopAllCoroutines();
 		StartCoroutine(TravelPath());
-        CanMove=false;
+		CanMove=false;
 	}
 
 	IEnumerator TravelPath () {
@@ -242,7 +242,7 @@ public class HexUnit : MonoBehaviour {
 			moveCost +=
 				toCell.UrbanLevel + toCell.FarmLevel + toCell.PlantLevel;
 		}
-        return moveCost;
+		return moveCost;
 	}
 
 	public void Die () {
@@ -277,27 +277,27 @@ public class HexUnit : MonoBehaviour {
 		}
 	}
 
-//	void OnDrawGizmos () {
-//		if (pathToTravel == null || pathToTravel.Count == 0) {
-//			return;
-//		}
-//
-//		Vector3 a, b, c = pathToTravel[0].Position;
-//
-//		for (int i = 1; i < pathToTravel.Count; i++) {
-//			a = c;
-//			b = pathToTravel[i - 1].Position;
-//			c = (b + pathToTravel[i].Position) * 0.5f;
-//			for (float t = 0f; t < 1f; t += 0.1f) {
-//				Gizmos.DrawSphere(Bezier.GetPoint(a, b, c, t), 2f);
-//			}
-//		}
-//
-//		a = c;
-//		b = pathToTravel[pathToTravel.Count - 1].Position;
-//		c = b;
-//		for (float t = 0f; t < 1f; t += 0.1f) {
-//			Gizmos.DrawSphere(Bezier.GetPoint(a, b, c, t), 2f);
-//		}
-//	}
+	//	void OnDrawGizmos () {
+	//		if (pathToTravel == null || pathToTravel.Count == 0) {
+	//			return;
+	//		}
+	//
+	//		Vector3 a, b, c = pathToTravel[0].Position;
+	//
+	//		for (int i = 1; i < pathToTravel.Count; i++) {
+	//			a = c;
+	//			b = pathToTravel[i - 1].Position;
+	//			c = (b + pathToTravel[i].Position) * 0.5f;
+	//			for (float t = 0f; t < 1f; t += 0.1f) {
+	//				Gizmos.DrawSphere(Bezier.GetPoint(a, b, c, t), 2f);
+	//			}
+	//		}
+	//
+	//		a = c;
+	//		b = pathToTravel[pathToTravel.Count - 1].Position;
+	//		c = b;
+	//		for (float t = 0f; t < 1f; t += 0.1f) {
+	//			Gizmos.DrawSphere(Bezier.GetPoint(a, b, c, t), 2f);
+	//		}
+	//	}
 }

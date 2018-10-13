@@ -261,6 +261,9 @@ public class HexCell : MonoBehaviour {
 
 	public HexUnit Unit { get; set; }
 
+	//stores if there is a city in the cell
+	public HexCity city { get; set; } 
+
 	public HexCell PathFrom { get; set; }
 
 	public int SearchHeuristic { get; set; }

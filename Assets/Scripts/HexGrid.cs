@@ -14,6 +14,9 @@ public class HexGrid : MonoBehaviour {
 	public Text cellLabelPrefab;
 	public HexGridChunk chunkPrefab;
 	public HexUnit[] unitPrefabs;
+	public HexCity[] cityPrefabs;
+	public GameObject cityMenuPrefab;
+	public GameObject cityMenuCanvas;
 
 	public Texture2D noiseSource;
 
@@ -41,6 +44,7 @@ public class HexGrid : MonoBehaviour {
 	int currentCenterColumnIndex = -1;
 
 	List<HexUnit> units = new List<HexUnit>();
+	List<HexCity> cities = new List<HexCity> ();
 
 	HexCellShaderData cellShaderData;
 
@@ -48,26 +52,47 @@ public class HexGrid : MonoBehaviour {
 		HexMetrics.noiseSource = noiseSource;
 		HexMetrics.InitializeHashGrid(seed);
 		HexUnit.unitPrefab = unitPrefabs[0];
+		//stores the first prefab as the city prefab
+		HexCity.cityPrefab = cityPrefabs[0];
+		//stores the menu prefab
+		HexCity.cityMenu = cityMenuPrefab;
+		//stores the city menu canvas object
+		HexCity.cityMenuCanvas = cityMenuCanvas;
+
 		cellShaderData = gameObject.AddComponent<HexCellShaderData>();
 		cellShaderData.Grid = this;
 		CreateMap(cellCountX, cellCountZ, wrapping);
 	}
 
-    public void changeUnit(int i){ 
-        HexUnit.unitPrefab = unitPrefabs[i];    
-    }
+	public void changeUnit(int i){ 
+		HexUnit.unitPrefab = unitPrefabs[i];    
+	}
 
-    public void Pass(){ 
-        foreach (HexUnit hu in units) {
-            hu.CanMove=true;
-        }
-    }
+	public void Pass(){ 
+		foreach (HexUnit hu in units) {
+			hu.CanMove=true;
+		}
+	}
+
+	//Adds an city to the cell (identical to AddUnit())
+	public void AddCity (HexCity city, HexCell location, float orientation) {
+		cities.Add (city);
+		city.Grid = this;
+		city.Location = location;
+		city.Orientation = orientation;
+	}
+	//Removes an city (identical to RemoveUnit)
+	public void RemoveCity (HexCity city) {
+		cities.Remove (city);
+		city.Destroy();
+	}
 
 	public void AddUnit (HexUnit unit, HexCell location, float orientation) {
 		units.Add(unit);
 		unit.Grid = this;
 		unit.Location = location;
 		unit.Orientation = orientation;
+		unit.CanMove = false;
 	}
 
 	public void RemoveUnit (HexUnit unit) {
@@ -147,6 +172,7 @@ public class HexGrid : MonoBehaviour {
 			HexMetrics.noiseSource = noiseSource;
 			HexMetrics.InitializeHashGrid(seed);
 			HexUnit.unitPrefab = unitPrefabs[0];
+			HexCity.cityPrefab = cityPrefabs[0];
 			HexMetrics.wrapSize = wrapping ? cellCountX : 0;
 			ResetVisibility();
 		}
@@ -351,8 +377,8 @@ public class HexGrid : MonoBehaviour {
 				current.EnableHighlight(Color.white);
 				current = current.PathFrom;
 			}
-            currentPathFrom.EnableHighlight(Color.blue);
-		    currentPathTo.EnableHighlight(Color.red);
+			currentPathFrom.EnableHighlight(Color.blue);
+			currentPathTo.EnableHighlight(Color.red);
 		}
 	}
 
@@ -362,9 +388,9 @@ public class HexGrid : MonoBehaviour {
 		currentPathTo = toCell;
 
 		currentPathExists = Search(fromCell, toCell, unit);
-        
-        if(unit.CanMove)
-		    ShowPath(unit.Speed);
+
+		if(unit.CanMove)
+			ShowPath(unit.Speed);
 	}
 
 	bool Search (HexCell fromCell, HexCell toCell, HexUnit unit) {
@@ -411,8 +437,8 @@ public class HexGrid : MonoBehaviour {
 				if (turn > currentTurn) {
 					distance = turn * speed + moveCost;
 				}
-                if(turn>0)
-                    return false;
+				if(turn>0)
+					return false;
 
 				if (neighbor.SearchPhase < searchFrontierPhase) {
 					neighbor.SearchPhase = searchFrontierPhase;
@@ -516,7 +542,7 @@ public class HexGrid : MonoBehaviour {
 	public void CenterMap (float xPosition) {
 		int centerColumnIndex = (int)
 			(xPosition / (HexMetrics.innerDiameter * HexMetrics.chunkSizeX));
-		
+
 		if (centerColumnIndex == currentCenterColumnIndex) {
 			return;
 		}
