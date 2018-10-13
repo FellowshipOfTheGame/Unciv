@@ -79,7 +79,7 @@ public class HexCity : MonoBehaviour {
 				//search the selected cell beetween location's neighbors, while disabling the highlights
 				for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
 					//if the correct cell is found, instantiate an unit there
-					if (location.GetNeighbor (d) == aux2 && !(aux2 = location.GetNeighbor (d)).Unit && !aux2.IsUnderwater && location.GetElevationDifference(d) < 2) {
+					if (location.GetNeighbor(d) && location.GetNeighbor (d) == aux2 && !(aux2 = location.GetNeighbor (d)).Unit && !aux2.IsUnderwater && location.GetElevationDifference(d) < 2) {
 						CreateUnit (aux2);
 					}
 					location.GetNeighbor (d).DisableHighlight ();
@@ -105,7 +105,8 @@ public class HexCity : MonoBehaviour {
 		Debug.Log ("Spawnando");
 		//highlight all available cells around the city
 		for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
-			if (!location.GetNeighbor(d).Unit && !location.GetNeighbor(d).IsUnderwater && location.GetElevationDifference(d) < 2)
+			if (location.GetNeighbor(d) && !location.GetNeighbor(d).Unit && !location.GetNeighbor(d).IsUnderwater && location.GetElevationDifference(d) < 2 
+				&& ((location.GetNeighbor(d).HasRiver && location.GetNeighbor(d).HasRoads) || !location.GetNeighbor(d).HasRiver))
 				location.GetNeighbor (d).EnableHighlight (Color.blue);
 		}
 		//stores the information that an unity can be spawned
