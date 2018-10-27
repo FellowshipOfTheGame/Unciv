@@ -41,32 +41,28 @@ public class HexGameUI : MonoBehaviour {
 			} 
 			//checks the right button
 			else if (Input.GetMouseButtonDown (1)) {
-				Debug.Log ("Entrou");
 				//selects the city
-				DoCitySelection (selectedCity);
+				DoCitySelection ();
 				//if successfull selected:
 				if (selectedCity) {
-					//active if deactivated, deactive if actvated;
-					if (!selectedCity.IsCityMenuActivated) {
-						selectedCity.ActiveCityMenu ();
-					} else {
-						selectedCity.DeactiveCityMenu ();
-					}
+					selectedCity.ActiveCityMenu ();
 				}
 			}
+		}
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			HexCity.DeactiveAllCitiesMenus ();
 		}
 		if(Input.GetButtonDown("Jump"))
 			grid.Pass();
 	}
 
 	//selects the actual city and disables any different city menu
-	void DoCitySelection (HexCity city) {
+	void DoCitySelection () {
 		grid.ClearPath ();
 		UpdateCurrentCell ();
-		if (city && currentCell.city != city) {
-			Debug.Log ("Different cities");
-			city.DeactiveCityMenu();
-		}
+
+		HexCity.DeactiveAllCitiesMenus ();
+
 		if (currentCell) {
 			selectedCity = currentCell.city;
 		}

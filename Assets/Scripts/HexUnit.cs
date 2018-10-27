@@ -109,8 +109,9 @@ public class HexUnit : MonoBehaviour {
 		transform.localPosition = location.Position;
 	}
 
+	//says if a cell is valid to be occupied 
 	public bool IsValidDestination (HexCell cell) {
-		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit;
+		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit && !cell.city;
 	}
 
 	public void Travel (List<HexCell> path) {
