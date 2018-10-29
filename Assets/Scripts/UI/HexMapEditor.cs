@@ -4,9 +4,11 @@ using System.IO;
 
 public class HexMapEditor : MonoBehaviour {
     
-    int i=0;
+    //int i=0;
 
 	public HexGrid hexGrid;
+
+    public static bool isEditMode=false;
 
 	public Material terrainMaterial;
 
@@ -104,6 +106,7 @@ public class HexMapEditor : MonoBehaviour {
 
 	public void SetEditMode (bool toggle) {
 		enabled = toggle;
+        isEditMode=enabled;
 	}
 
 	public void ShowGrid (bool visible) {
@@ -123,11 +126,7 @@ public class HexMapEditor : MonoBehaviour {
 
 	void Update () {
         
-        if(Input.GetKey(KeyCode.Alpha1))
-            i=0;
-        else if(Input.GetKey(KeyCode.Alpha2))
-            i=1;
-		if (!EventSystem.current.IsPointerOverGameObject()) {
+        if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (Input.GetMouseButton(0)) {
 				HandleInput();
 				return;
@@ -137,7 +136,7 @@ public class HexMapEditor : MonoBehaviour {
 				if (Input.GetKey (KeyCode.LeftShift)) {
 					DestroyUnit ();
 				} else {
-					CreateUnit(i);
+					CreateUnit();
 				}
 				return;
 			}
@@ -153,7 +152,6 @@ public class HexMapEditor : MonoBehaviour {
 	//Now you spawn a city in MapEditor, units are spawned in HexCity
 	public void CreateCity (HexCell cell) {
 		if (cell && !cell.city) {
-            Debug.Log("valido?");
 			hexGrid.AddCity (Instantiate (HexGrid.cityPrefabs[0]), cell, Random.Range (0f, 360f));
 		}
 	}
@@ -166,10 +164,10 @@ public class HexMapEditor : MonoBehaviour {
 		}
 	}
 
-    void CreateUnit (int i) {
+    void CreateUnit () {
 		HexCell cell = GetCellUnderCursor();
 		if (cell && !cell.Unit) {
-			hexGrid.AddUnit(Instantiate(HexGrid.unitPrefabs[i]), cell, Random.Range(0f, 360f), "Barbaros");
+			hexGrid.AddUnit(Instantiate(HexGrid.unitPrefabs[1]), cell, Random.Range(0f, 360f), "Barbaros");
 		}
 	}
 

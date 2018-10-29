@@ -69,6 +69,7 @@ public class HexGrid : MonoBehaviour {
 	public void Pass(){ 
 		foreach (HexUnit hu in units) {
 			hu.CanMove=true;
+            hu.canAttack=true;
 		}
 	}
 
@@ -375,7 +376,7 @@ public class HexGrid : MonoBehaviour {
 				current = current.PathFrom;
 			}
 			currentPathFrom.EnableHighlight(Color.blue);
-			currentPathTo.EnableHighlight(Color.red);
+			currentPathTo.EnableHighlight(Color.green);
 		}
 	}
 
@@ -476,10 +477,15 @@ public class HexGrid : MonoBehaviour {
 		for (int i = 0; i < cells.Length; i++) {
 			cells[i].ResetVisibility();
 		}
+        foreach (var c in cities) { 
+            IncreaseVisibility(c.Location, c.VisionRange);    
+        }
 		for (int i = 0; i < units.Count; i++) {
 			HexUnit unit = units[i];
-			IncreaseVisibility(unit.Location, unit.VisionRange);
+            if(unit.Faccao=="Visokea")
+			    IncreaseVisibility(unit.Location, unit.VisionRange);
 		}
+        
 	}
 
 	List<HexCell> GetVisibleCells (HexCell fromCell, int range) {

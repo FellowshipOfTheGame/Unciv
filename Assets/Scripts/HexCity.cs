@@ -22,7 +22,7 @@ public class HexCity : MonoBehaviour {
 
 	public virtual int VisionRange {
 		get {
-			return 5;
+			return 6;
 		}
 	}
 
@@ -87,6 +87,7 @@ public class HexCity : MonoBehaviour {
 				canSpawn = false;
 			}
 		}
+        Grid.IncreaseVisibility(Location, VisionRange);
 	}
 
 	//simply actives the city menu

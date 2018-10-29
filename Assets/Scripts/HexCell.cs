@@ -311,6 +311,7 @@ public class HexCell : MonoBehaviour {
 		if (visibility == 1) {
 			IsExplored = true;
 			ShaderData.RefreshVisibility(this);
+            
 		}
 	}
 

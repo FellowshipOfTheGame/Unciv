@@ -29,7 +29,8 @@ public class HexUnit : MonoBehaviour {
 			}
 			location = value;
 			value.Unit = this;
-			Grid.IncreaseVisibility(value, VisionRange);
+            if(Faccao=="Visokea")
+			    Grid.IncreaseVisibility(value, VisionRange);
 			transform.localPosition = value.Position;
 			Grid.MakeChildOfColumn(transform, value.ColumnIndex);
 		}
@@ -63,37 +64,42 @@ public class HexUnit : MonoBehaviour {
 	public int DEF;
 	public int RNG;
 
+    public bool canAttack;
+
 	//atributo de controle;
 	public string Faccao; 
 
 	public virtual void Attack(HexUnit Target) { 
 		//verificar se a distancia esta adequada para o ataque ao alvo;
-		var DMG = this.ATK*(1-Target.DEF);
-		Target.HitP-=DMG; 
+		var DMG = this.ATK*(1f-Target.DEF/100f);
+		Target.HitP-=(int)DMG; 
 		Target.UpdateHP();
 		if(Target.HitP>0) { //se o alvo sobreviveu o ataque tem chances de revidar;
 			//verifica se o contra-ataque tem alcance;
-			DMG = Target.ATK*(1-this.DEF);
-			this.HitP-=DMG;
+			DMG = Target.ATK*(1f-this.DEF/100f);
+			this.HitP-=(int)DMG;
 			this.UpdateHP();
 		}
 		if(this.HitP>0&&Target.HitP>0) { //se ambos ainda estao vivos, iniciar segunda rodada;
 			if(this.SPD>Target.SPD+5) { //se minha velocidade eh maior que 5 a mais do que meu inimigo, eu ataco denovo;
-				DMG=this.ATK*(1-Target.DEF);
-				Target.HitP-=DMG;
+				DMG=this.ATK*(1f-Target.DEF/100f);
+				Target.HitP-=(int)DMG;
 				Target.UpdateHP();
 			}
 			else if(Target.SPD>this.SPD+5) { //se o alvo tem mais velocidade, ele tem direito ao ataque extra;
 				//verifica distancia mais uma vez;
-				DMG = Target.ATK*(1-this.DEF);
-				this.HitP-=DMG;
+				DMG = Target.ATK*(1f-this.DEF/100f);
+				this.HitP-=(int)DMG;
 				this.UpdateHP();
 			}
 		}
+        canAttack=false;
+        CanMove=false;
 	}
 
 	public void UpdateHP() { 
-		//atualiza a renderizacao das tropas, e remove unidades caso a vida va para 0;
+		if(HitP<=0)
+            Destroy(this.gameObject);
 	}
 
 	public virtual int VisionRange {
@@ -275,8 +281,10 @@ public class HexUnit : MonoBehaviour {
 		if (location) {
 			transform.localPosition = location.Position;
 			if (currentTravelLocation) {
-				Grid.IncreaseVisibility(location, VisionRange);
-				Grid.DecreaseVisibility(currentTravelLocation, VisionRange);
+                if(Faccao=="Visokea"){
+				    Grid.IncreaseVisibility(location, VisionRange);
+				    Grid.DecreaseVisibility(currentTravelLocation, VisionRange);
+                }
 				currentTravelLocation = null;
 			}
 		}
