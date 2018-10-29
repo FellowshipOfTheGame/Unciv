@@ -104,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4975025906492528}
   - component: {fileID: 114175357579291000}
+  - component: {fileID: 114413852379389806}
   m_Layer: 0
   m_Name: VisokeaF
   m_TagString: Untagged
@@ -400,3 +401,21 @@ MonoBehaviour:
   DEF: 0
   RNG: 0
   Faccao: 
+--- !u!114 &114413852379389806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1959178268680142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f14d5f82be5a14fa1572c996329c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facColors:
+  - {r: 0.67058825, g: 0, b: 0, a: 1}
+  - {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+  - {r: 0.011436857, g: 0, b: 0.33962262, a: 1}
+  objs:
+  - {fileID: 23214112327993106}
+  - {fileID: 23223360361578030}
