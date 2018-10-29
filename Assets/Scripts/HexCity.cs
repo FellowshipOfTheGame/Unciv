@@ -66,14 +66,14 @@ public class HexCity : MonoBehaviour {
 		//moves the panel
 		Vector3 aux = new Vector3(475, 0, 0);
 		individualCityMenu.transform.localPosition = aux;
-		canSpawn = false;
+		canSpawn = true;
 	}
 
 	void Update () {
 		//if an unity can be spawned
 		if (canSpawn == true) {
 			//when right click on a cell
-			if (Input.GetMouseButtonDown (1)) {
+			if (Input.GetMouseButtonDown (0)) {
 				//get the cell
 				HexCell aux2 = GetCellUnderCursor();
 				//search the selected cell beetween location's neighbors, while disabling the highlights
@@ -132,16 +132,8 @@ public class HexCity : MonoBehaviour {
 		}
 	}
 
-	void DestroyUnit () {
-		HexCell cell = GetCellUnderCursor();
-		if (cell && cell.Unit) {
-			Grid.RemoveUnit(cell.Unit);
-		}
-	}
-
 	public HexCell GetCellUnderCursor () {
-		return
-			Grid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
+		return Grid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
 	}
 
 	public void Destroy () {

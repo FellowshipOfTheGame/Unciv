@@ -28,7 +28,7 @@ public class HexGameUI : MonoBehaviour {
 	void Update () {
 		if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (selectedUnit && selectedUnit.CanMove) {
-				if (Input.GetMouseButtonDown (0)) {
+				if (Input.GetMouseButtonDown (1)) {
 					DoMove ();
 				} 
 				else {
@@ -39,8 +39,8 @@ public class HexGameUI : MonoBehaviour {
 				selectedCity = null;
 				DoUnitSelection ();
 			} 
-			//checks the right button
-			else if (Input.GetMouseButtonDown (1)) {
+
+			if (Input.GetMouseButtonDown (0)) {
 				//selects the city
 				DoCitySelection ();
 				//if successfull selected:
@@ -66,6 +66,8 @@ public class HexGameUI : MonoBehaviour {
 		if (currentCell) {
 			selectedCity = currentCell.city;
 		}
+        if(selectedCity)
+            Debug.Log("Cidade Selecionada");
 	}
 
 	void DoUnitSelection () {
@@ -74,6 +76,8 @@ public class HexGameUI : MonoBehaviour {
 		if (currentCell) {
 			selectedUnit = currentCell.Unit;
 		}
+        if(selectedUnit)
+            Debug.Log("Unidade Selecionada");
 	}
 
 	void DoPathfinding () {

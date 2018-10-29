@@ -132,9 +132,9 @@ public class HexMapEditor : MonoBehaviour {
 			//now you spawn a city with U, not a unit anymore
 			if (Input.GetKeyDown (KeyCode.U)) {
 				if (Input.GetKey (KeyCode.LeftShift)) {
-					DestroyCity ();
+					DestroyUnit ();
 				} else {
-					CreateCity (GetCellUnderCursor ());
+					CreateUnit();
 				}
 				return;
 			}
@@ -159,6 +159,20 @@ public class HexMapEditor : MonoBehaviour {
 		HexCell cell = GetCellUnderCursor();
 		if (cell && cell.city) {
 			hexGrid.RemoveCity(cell.city);
+		}
+	}
+
+    void CreateUnit () {
+		HexCell cell = GetCellUnderCursor();
+		if (cell && !cell.Unit) {
+			hexGrid.AddUnit(Instantiate(HexUnit.unitPrefab), cell, Random.Range(0f, 360f));
+		}
+	}
+
+	void DestroyUnit () {
+		HexCell cell = GetCellUnderCursor();
+		if (cell && cell.Unit) {
+			hexGrid.RemoveUnit(cell.Unit);
 		}
 	}
 
@@ -209,6 +223,12 @@ public class HexMapEditor : MonoBehaviour {
 		}
 	}
 
+    private void ApplySpecials(HexCell cell) { 
+        if(activeSpecialIndex == 2){ 
+            CreateCity(cell);
+        }
+    }
+
 	void EditCell (HexCell cell) {
 		if (cell) {
 			if (activeTerrainTypeIndex >= 0) {
@@ -221,7 +241,7 @@ public class HexMapEditor : MonoBehaviour {
 				cell.WaterLevel = activeWaterLevel;
 			}
 			if (applySpecialIndex) {
-				cell.SpecialIndex = activeSpecialIndex;
+				ApplySpecials(cell);
 			}
 			if (applyUrbanLevel) {
 				cell.UrbanLevel = activeUrbanLevel;
