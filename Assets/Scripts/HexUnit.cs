@@ -225,7 +225,7 @@ public class HexUnit : MonoBehaviour {
 		orientation = transform.localRotation.eulerAngles.y;
 	}
 
-	public int GetMoveCost (
+	public virtual int GetMoveCost (
 		HexCell fromCell, HexCell toCell, HexDirection direction)
 	{
 		if (!IsValidDestination(toCell)) {
