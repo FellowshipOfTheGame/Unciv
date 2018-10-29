@@ -115,6 +115,8 @@ public class HexGrid : MonoBehaviour {
 
 		ClearPath();
 		ClearUnits();
+        ClearCities();
+
 		if (columns != null) {
 			for (int i = 0; i < columns.Length; i++) {
 				Destroy(columns[i].gameObject);
@@ -165,6 +167,13 @@ public class HexGrid : MonoBehaviour {
 			units[i].Die();
 		}
 		units.Clear();
+	}
+
+    void ClearCities () {
+		for (int i = 0; i < cities.Count; i++) {
+			cities[i].Destroy();
+		}
+		cities.Clear();
 	}
 
 	void OnEnable () {
@@ -299,11 +308,17 @@ public class HexGrid : MonoBehaviour {
 		for (int i = 0; i < units.Count; i++) {
 			units[i].Save(writer);
 		}
+
+        writer.Write(cities.Count);
+		for (int i = 0; i < cities.Count; i++) {
+			cities[i].Save(writer);
+		}
 	}
 
 	public void Load (BinaryReader reader, int header) {
 		ClearPath();
 		ClearUnits();
+        ClearCities();
 		int x = 20, z = 15;
 		if (header >= 1) {
 			x = reader.ReadInt32();
@@ -332,6 +347,14 @@ public class HexGrid : MonoBehaviour {
 				HexUnit.Load(reader, this);
 			}
 		}
+
+        if (header >= 6) {
+			int citiesCount = reader.ReadInt32();
+			for (int i = 0; i < citiesCount; i++) {
+				HexCity.Load(reader, this);
+			}
+		}
+        
 
 		cellShaderData.ImmediateMode = originalImmediateMode;
 	}

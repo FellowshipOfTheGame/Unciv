@@ -273,7 +273,7 @@ public class HexUnit : MonoBehaviour {
 		HexCoordinates coordinates = HexCoordinates.Load(reader);
 		float orientation = reader.ReadSingle();
 		grid.AddUnit(
-			Instantiate(HexGrid.unitPrefabs[0]), grid.GetCell(coordinates), orientation, "Barbaros"
+			Instantiate(HexGrid.unitPrefabs[1]), grid.GetCell(coordinates), orientation, "Barbaros"
 		);
 	}
 

@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using UnityEngine;
+using System.IO;
 using UnityEngine.UI;
 
 public class HexCity : MonoBehaviour {
@@ -142,5 +142,18 @@ public class HexCity : MonoBehaviour {
 		}
 		location.city = null;
 		Destroy(gameObject);
+	}
+
+    public void Save (BinaryWriter writer) {
+		location.coordinates.Save(writer);
+		writer.Write(orientation);
+	}
+
+    public static void Load (BinaryReader reader, HexGrid grid) {
+		HexCoordinates coordinates = HexCoordinates.Load(reader);
+		float orientation = reader.ReadSingle();
+		grid.AddCity(
+			Instantiate(HexGrid.cityPrefabs[0]), grid.GetCell(coordinates), orientation
+		);
 	}
 }

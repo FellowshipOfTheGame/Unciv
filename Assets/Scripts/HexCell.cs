@@ -499,6 +499,7 @@ public class HexCell : MonoBehaviour {
 		if (Unit) {
 			Unit.ValidateLocation();
 		}
+        
 	}
 
 	public void Save (BinaryWriter writer) {

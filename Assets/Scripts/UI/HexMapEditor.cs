@@ -229,6 +229,7 @@ public class HexMapEditor : MonoBehaviour {
         if(activeSpecialIndex == 2){ 
             CreateCity(cell);
         }
+        
     }
 
 	void EditCell (HexCell cell) {
