@@ -7,10 +7,14 @@ public class HexUnit : MonoBehaviour {
 
 	const float rotationSpeed = 180f;
 	const float travelSpeed = 4f;
-
+    
 	public bool CanMove=true;
 
-	public static HexUnit unitPrefab;
+    public virtual int UnitPrefab {
+		get {
+			return 0;
+		}
+	}
 
 	public HexGrid Grid { get; set; }
 
@@ -60,7 +64,7 @@ public class HexUnit : MonoBehaviour {
 	public int RNG;
 
 	//atributo de controle;
-	public int Faccao; //0 representa a faccao do jogador, 1 sao os barbaros, 2 as faccoes menores;
+	public string Faccao; 
 
 	public virtual void Attack(HexUnit Target) { 
 		//verificar se a distancia esta adequada para o ataque ao alvo;
@@ -259,11 +263,11 @@ public class HexUnit : MonoBehaviour {
 		writer.Write(orientation);
 	}
 
-	public static void Load (BinaryReader reader, HexGrid grid) {
+    public static void Load (BinaryReader reader, HexGrid grid) {
 		HexCoordinates coordinates = HexCoordinates.Load(reader);
 		float orientation = reader.ReadSingle();
 		grid.AddUnit(
-			Instantiate(unitPrefab), grid.GetCell(coordinates), orientation
+			Instantiate(HexGrid.unitPrefabs[0]), grid.GetCell(coordinates), orientation, "Barbaros"
 		);
 	}
 

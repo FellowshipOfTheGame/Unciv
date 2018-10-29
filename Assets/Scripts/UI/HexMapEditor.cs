@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 using System.IO;
 
 public class HexMapEditor : MonoBehaviour {
+    
+    int i=0;
 
 	public HexGrid hexGrid;
 
@@ -120,13 +122,14 @@ public class HexMapEditor : MonoBehaviour {
 	}
 
 	void Update () {
+        
+        if(Input.GetKey(KeyCode.Alpha1))
+            i=0;
+        else if(Input.GetKey(KeyCode.Alpha2))
+            i=1;
 		if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (Input.GetMouseButton(0)) {
 				HandleInput();
-				return;
-			}
-			if(Input.GetButtonDown("Jump")){ 
-				hexGrid.changeUnit(1);
 				return;
 			}
 			//now you spawn a city with U, not a unit anymore
@@ -134,7 +137,7 @@ public class HexMapEditor : MonoBehaviour {
 				if (Input.GetKey (KeyCode.LeftShift)) {
 					DestroyUnit ();
 				} else {
-					CreateUnit();
+					CreateUnit(i);
 				}
 				return;
 			}
@@ -150,7 +153,8 @@ public class HexMapEditor : MonoBehaviour {
 	//Now you spawn a city in MapEditor, units are spawned in HexCity
 	public void CreateCity (HexCell cell) {
 		if (cell && !cell.city) {
-			hexGrid.AddCity (Instantiate (HexCity.cityPrefab), cell, Random.Range (0f, 360f));
+            Debug.Log("valido?");
+			hexGrid.AddCity (Instantiate (HexGrid.cityPrefabs[0]), cell, Random.Range (0f, 360f));
 		}
 	}
 
@@ -162,10 +166,10 @@ public class HexMapEditor : MonoBehaviour {
 		}
 	}
 
-    void CreateUnit () {
+    void CreateUnit (int i) {
 		HexCell cell = GetCellUnderCursor();
 		if (cell && !cell.Unit) {
-			hexGrid.AddUnit(Instantiate(HexUnit.unitPrefab), cell, Random.Range(0f, 360f));
+			hexGrid.AddUnit(Instantiate(HexGrid.unitPrefabs[i]), cell, Random.Range(0f, 360f), "Barbaros");
 		}
 	}
 

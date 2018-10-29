@@ -74,7 +74,9 @@ public class HexGameUI : MonoBehaviour {
 		grid.ClearPath();
 		UpdateCurrentCell();
 		if (currentCell) {
-			selectedUnit = currentCell.Unit;
+            if(currentCell.Unit)
+                if(currentCell.Unit.Faccao=="Visokea")
+			        selectedUnit = currentCell.Unit;
 		}
         if(selectedUnit)
             Debug.Log("Unidade Selecionada");

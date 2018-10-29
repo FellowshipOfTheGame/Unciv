@@ -13,8 +13,10 @@ public class HexGrid : MonoBehaviour {
 	public HexCell cellPrefab;
 	public Text cellLabelPrefab;
 	public HexGridChunk chunkPrefab;
-	public HexUnit[] unitPrefabs;
-	public HexCity[] cityPrefabs;
+    public HexUnit[] unitsP;
+	public HexCity[] citiesP;
+	public static HexUnit[] unitPrefabs;
+	public static HexCity[] cityPrefabs;
 	public GameObject cityMenuPrefab;
 	public GameObject cityMenuCanvas;
 
@@ -51,9 +53,9 @@ public class HexGrid : MonoBehaviour {
 	void Awake () {
 		HexMetrics.noiseSource = noiseSource;
 		HexMetrics.InitializeHashGrid(seed);
-		HexUnit.unitPrefab = unitPrefabs[0];
-		//stores the first prefab as the city prefab
-		HexCity.cityPrefab = cityPrefabs[0];
+		unitPrefabs=unitsP;
+        cityPrefabs=citiesP;
+		
 		//stores the menu prefab
 		HexCity.cityMenu = cityMenuPrefab;
 		//stores the city menu canvas object
@@ -62,10 +64,6 @@ public class HexGrid : MonoBehaviour {
 		cellShaderData = gameObject.AddComponent<HexCellShaderData>();
 		cellShaderData.Grid = this;
 		CreateMap(cellCountX, cellCountZ, wrapping);
-	}
-
-	public void changeUnit(int i){ 
-		HexUnit.unitPrefab = unitPrefabs[i];    
 	}
 
 	public void Pass(){ 
@@ -87,11 +85,12 @@ public class HexGrid : MonoBehaviour {
 		city.Destroy();
 	}
 
-	public void AddUnit (HexUnit unit, HexCell location, float orientation) {
+	public void AddUnit (HexUnit unit, HexCell location, float orientation, string Fac) {
 		units.Add(unit);
 		unit.Grid = this;
 		unit.Location = location;
 		unit.Orientation = orientation;
+        unit.Faccao=Fac;
 		unit.CanMove = false;
 	}
 
@@ -171,8 +170,6 @@ public class HexGrid : MonoBehaviour {
 		if (!HexMetrics.noiseSource) {
 			HexMetrics.noiseSource = noiseSource;
 			HexMetrics.InitializeHashGrid(seed);
-			HexUnit.unitPrefab = unitPrefabs[0];
-			HexCity.cityPrefab = cityPrefabs[0];
 			HexMetrics.wrapSize = wrapping ? cellCountX : 0;
 			ResetVisibility();
 		}
