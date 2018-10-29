@@ -71,6 +71,9 @@ public class HexGrid : MonoBehaviour {
 			hu.CanMove=true;
             hu.canAttack=true;
 		}
+        foreach (var c in cities) { 
+            c.Resources+=c.ResPT;    
+        }
 	}
 
 	//Adds an city to the cell (identical to AddUnit())

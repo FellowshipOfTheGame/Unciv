@@ -395,11 +395,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanMove: 1
-  ATK: 0
-  SPD: 0
-  HitP: 0
-  DEF: 0
-  RNG: 0
+  ATK: 10
+  SPD: 10
+  HitP: 100
+  DEF: 10
+  RNG: 1
+  cost: 10
+  canAttack: 0
   Faccao: 
 --- !u!114 &114413852379389806
 MonoBehaviour:

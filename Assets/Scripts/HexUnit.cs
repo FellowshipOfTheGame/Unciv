@@ -64,6 +64,8 @@ public class HexUnit : MonoBehaviour {
 	public int DEF;
 	public int RNG;
 
+    public int cost;
+
     public bool canAttack;
 
 	//atributo de controle;

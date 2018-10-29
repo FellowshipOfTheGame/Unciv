@@ -9,6 +9,6 @@ public class dummy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SLM.Load(Path.Combine(Application.persistentDataPath, "Teste.map"));
+		SLM.Load(Path.Combine(Application.dataPath, "Teste.map"));
 	}
 }

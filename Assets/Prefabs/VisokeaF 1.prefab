@@ -103,10 +103,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4975025906492528}
-  - component: {fileID: 114413852379389806}
   - component: {fileID: 114145814361460364}
+  - component: {fileID: 114413852379389806}
   m_Layer: 0
-  m_Name: VisokeaF AI
+  m_Name: VisokeaF 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -395,11 +395,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanMove: 1
-  ATK: 0
-  SPD: 0
-  HitP: 0
-  DEF: 0
-  RNG: 0
+  ATK: 10
+  SPD: 10
+  HitP: 100
+  DEF: 10
+  RNG: 1
+  cost: 10
   canAttack: 0
   Faccao: 
 --- !u!114 &114413852379389806
