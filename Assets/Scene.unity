@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10953,10 +10953,10 @@ MonoBehaviour:
   cellLabelPrefab: {fileID: 11470134, guid: f68794ca03b6f4510b9a5bd6ee9ba2f4, type: 2}
   chunkPrefab: {fileID: 114000010052569294, guid: 7622d007cafd044a1b1189c0b93d2912,
     type: 2}
-  unitPrefabs:
-  - {fileID: 114701888605048992, guid: 5661a1efcb9464721b4db3f694ded559, type: 2}
-  - {fileID: 114334380035508900, guid: 9fcbaebe2a6caf1408628ec9010ab4e3, type: 2}
-  cityPrefabs:
+  unitsP:
+  - {fileID: 114175357579291000, guid: 8ffa2f5407aa3ee49a407567cf157728, type: 2}
+  - {fileID: 114145814361460364, guid: fd61d9eca48726548b4bf10929168216, type: 2}
+  citiesP:
   - {fileID: 114230749427516188, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 2}
   cityMenuPrefab: {fileID: 1354805677061132, guid: 019022f3b0ed14fb79e54aa25f6c9671,
     type: 2}

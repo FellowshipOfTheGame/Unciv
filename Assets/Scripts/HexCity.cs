@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class HexCity : MonoBehaviour {
 
-	public static HexCity cityPrefab;
 	public static GameObject cityMenuCanvas;
 	public static GameObject cityMenu;
 	GameObject individualCityMenu;
@@ -23,7 +22,7 @@ public class HexCity : MonoBehaviour {
 
 	public virtual int VisionRange {
 		get {
-			return 5;
+			return 6;
 		}
 	}
 
@@ -88,6 +87,7 @@ public class HexCity : MonoBehaviour {
 				canSpawn = false;
 			}
 		}
+        Grid.IncreaseVisibility(Location, VisionRange);
 	}
 
 	//simply actives the city menu
@@ -128,7 +128,7 @@ public class HexCity : MonoBehaviour {
 
 	void CreateUnit (HexCell cell) {
 		if (cell && !cell.Unit) {
-			Grid.AddUnit(Instantiate(HexUnit.unitPrefab), cell, Random.Range(0f, 360f));
+			Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[0]), cell, Random.Range(0f, 360f), "Visokea");
 		}
 	}
 

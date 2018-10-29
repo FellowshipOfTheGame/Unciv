@@ -25,11 +25,39 @@ public class HexGameUI : MonoBehaviour {
 		}
 	}
 
+    public HexCell GetCellUnderCursor () {
+		return
+			grid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
+	}
+
 	void Update () {
 		if (!EventSystem.current.IsPointerOverGameObject()) {
-			if (selectedUnit && selectedUnit.CanMove) {
+			if (selectedUnit) {
 				if (Input.GetMouseButtonDown (1)) {
-					DoMove ();
+                    if(selectedUnit.canAttack){ 
+                        Debug.Log("Unidade pode atacar");
+                        HexCell currentCell = GetCellUnderCursor();
+                        if(currentCell.Unit) {
+                            Debug.Log("Tem unidade");
+                            if(currentCell.Unit.Faccao!=selectedUnit.Faccao) {
+                                Debug.Log("Unidade inimiga");
+                                selectedUnit.Attack(currentCell.Unit);
+                                for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+                                    selectedUnit.Location.GetNeighbor (d).DisableHighlight ();
+                            }
+                        }
+                    }
+                    if(selectedUnit.CanMove) {
+					    DoMove ();
+                        if(selectedUnit.canAttack)
+                            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
+                                Debug.Log("entrou for HL");
+			                    if (selectedUnit.Location.GetNeighbor(d))
+                                    if (selectedUnit.Location.GetNeighbor(d).Unit)
+                                        if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao)
+				                            selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
+                            }
+                    }
 				} 
 				else {
 					DoPathfinding ();
@@ -48,6 +76,9 @@ public class HexGameUI : MonoBehaviour {
 					selectedCity.ActiveCityMenu ();
 				}
 			}
+
+            
+            
 		}
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			HexCity.DeactiveAllCitiesMenus ();
@@ -58,6 +89,10 @@ public class HexGameUI : MonoBehaviour {
 
 	//selects the actual city and disables any different city menu
 	void DoCitySelection () {
+        if(selectedUnit)
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+                selectedUnit.Location.GetNeighbor (d).DisableHighlight ();
+
 		grid.ClearPath ();
 		UpdateCurrentCell ();
 
@@ -71,13 +106,27 @@ public class HexGameUI : MonoBehaviour {
 	}
 
 	void DoUnitSelection () {
+        //limpa o highlight de ataque
+        if(selectedUnit)
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+                selectedUnit.Location.GetNeighbor (d).DisableHighlight ();
+
 		grid.ClearPath();
 		UpdateCurrentCell();
 		if (currentCell) {
-			selectedUnit = currentCell.Unit;
+            if(currentCell.Unit)
+                if(currentCell.Unit.Faccao=="Visokea")
+			        selectedUnit = currentCell.Unit;
 		}
         if(selectedUnit)
-            Debug.Log("Unidade Selecionada");
+            if(selectedUnit.canAttack)
+                for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
+                    Debug.Log("entrou for HL");
+			        if (selectedUnit.Location.GetNeighbor(d))
+                        if (selectedUnit.Location.GetNeighbor(d).Unit) 
+                            if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao) 
+				                selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
+		        }
 	}
 
 	void DoPathfinding () {

@@ -13,8 +13,10 @@ public class HexGrid : MonoBehaviour {
 	public HexCell cellPrefab;
 	public Text cellLabelPrefab;
 	public HexGridChunk chunkPrefab;
-	public HexUnit[] unitPrefabs;
-	public HexCity[] cityPrefabs;
+    public HexUnit[] unitsP;
+	public HexCity[] citiesP;
+	public static HexUnit[] unitPrefabs;
+	public static HexCity[] cityPrefabs;
 	public GameObject cityMenuPrefab;
 	public GameObject cityMenuCanvas;
 
@@ -51,9 +53,9 @@ public class HexGrid : MonoBehaviour {
 	void Awake () {
 		HexMetrics.noiseSource = noiseSource;
 		HexMetrics.InitializeHashGrid(seed);
-		HexUnit.unitPrefab = unitPrefabs[0];
-		//stores the first prefab as the city prefab
-		HexCity.cityPrefab = cityPrefabs[0];
+		unitPrefabs=unitsP;
+        cityPrefabs=citiesP;
+		
 		//stores the menu prefab
 		HexCity.cityMenu = cityMenuPrefab;
 		//stores the city menu canvas object
@@ -64,13 +66,10 @@ public class HexGrid : MonoBehaviour {
 		CreateMap(cellCountX, cellCountZ, wrapping);
 	}
 
-	public void changeUnit(int i){ 
-		HexUnit.unitPrefab = unitPrefabs[i];    
-	}
-
 	public void Pass(){ 
 		foreach (HexUnit hu in units) {
 			hu.CanMove=true;
+            hu.canAttack=true;
 		}
 	}
 
@@ -87,11 +86,12 @@ public class HexGrid : MonoBehaviour {
 		city.Destroy();
 	}
 
-	public void AddUnit (HexUnit unit, HexCell location, float orientation) {
+	public void AddUnit (HexUnit unit, HexCell location, float orientation, string Fac) {
 		units.Add(unit);
 		unit.Grid = this;
 		unit.Location = location;
 		unit.Orientation = orientation;
+        unit.Faccao=Fac;
 		unit.CanMove = false;
 	}
 
@@ -171,8 +171,6 @@ public class HexGrid : MonoBehaviour {
 		if (!HexMetrics.noiseSource) {
 			HexMetrics.noiseSource = noiseSource;
 			HexMetrics.InitializeHashGrid(seed);
-			HexUnit.unitPrefab = unitPrefabs[0];
-			HexCity.cityPrefab = cityPrefabs[0];
 			HexMetrics.wrapSize = wrapping ? cellCountX : 0;
 			ResetVisibility();
 		}
@@ -378,7 +376,7 @@ public class HexGrid : MonoBehaviour {
 				current = current.PathFrom;
 			}
 			currentPathFrom.EnableHighlight(Color.blue);
-			currentPathTo.EnableHighlight(Color.red);
+			currentPathTo.EnableHighlight(Color.green);
 		}
 	}
 
@@ -479,10 +477,15 @@ public class HexGrid : MonoBehaviour {
 		for (int i = 0; i < cells.Length; i++) {
 			cells[i].ResetVisibility();
 		}
+        foreach (var c in cities) { 
+            IncreaseVisibility(c.Location, c.VisionRange);    
+        }
 		for (int i = 0; i < units.Count; i++) {
 			HexUnit unit = units[i];
-			IncreaseVisibility(unit.Location, unit.VisionRange);
+            if(unit.Faccao=="Visokea")
+			    IncreaseVisibility(unit.Location, unit.VisionRange);
 		}
+        
 	}
 
 	List<HexCell> GetVisibleCells (HexCell fromCell, int range) {

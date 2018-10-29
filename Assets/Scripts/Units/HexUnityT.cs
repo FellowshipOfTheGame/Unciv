@@ -9,4 +9,10 @@ public class HexUnityT : HexUnit {
 			return 12;
 		}
 	}
+
+    public override int UnitPrefab {
+		get {
+			return 1;
+		}
+	}
 }
