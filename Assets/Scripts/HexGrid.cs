@@ -8,6 +8,8 @@ public class HexGrid : MonoBehaviour {
 
 	public int cellCountX = 20, cellCountZ = 15;
 
+    public AIbrain AB;
+
 	public bool wrapping;
 
 	public HexCell cellPrefab;
@@ -74,6 +76,7 @@ public class HexGrid : MonoBehaviour {
         foreach (var c in cities) { 
             c.Resources+=c.ResPT;    
         }
+        AB.Activate();
 	}
 
 	//Adds an city to the cell (identical to AddUnit())
@@ -95,11 +98,15 @@ public class HexGrid : MonoBehaviour {
 		unit.Location = location;
 		unit.Orientation = orientation;
         unit.Faccao=Fac;
+        if(Fac=="Barbaros")
+            AB.Units.Add(unit);
 		unit.CanMove = false;
 	}
 
 	public void RemoveUnit (HexUnit unit) {
 		units.Remove(unit);
+        if(unit.Faccao=="Barbaros")
+            AB.Units.Remove(unit);
 		unit.Die();
 	}
 

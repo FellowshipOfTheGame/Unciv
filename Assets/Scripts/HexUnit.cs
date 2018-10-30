@@ -101,7 +101,7 @@ public class HexUnit : MonoBehaviour {
 
 	public void UpdateHP() { 
 		if(HitP<=0)
-            Destroy(this.gameObject);
+            Die();
 	}
 
 	public virtual int VisionRange {
