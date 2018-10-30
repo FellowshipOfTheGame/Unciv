@@ -11,4 +11,6 @@ public class dummy : MonoBehaviour {
 	void Start () {
 		SLM.Load(Path.Combine(Application.dataPath, "Teste.map"));
 	}
+
+
 }

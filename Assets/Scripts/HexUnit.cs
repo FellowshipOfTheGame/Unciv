@@ -7,6 +7,8 @@ public class HexUnit : MonoBehaviour {
 
 	const float rotationSpeed = 180f;
 	const float travelSpeed = 4f;
+
+    public Healthbar HB;
     
 	public bool CanMove=true;
 
@@ -99,7 +101,8 @@ public class HexUnit : MonoBehaviour {
         CanMove=false;
 	}
 
-	public void UpdateHP() { 
+	public void UpdateHP() {
+        HB.SetHP(HitP);
 		if(HitP<=0)
             Grid.RemoveUnit(this);
 	}
