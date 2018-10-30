@@ -12,11 +12,17 @@ public class HexUnitAI : HexUnit {
 
     private void Update() {
         if(!HexMapEditor.isEditMode)
-            if(Location.IsVisible)
+            if(Location.IsVisible) {
                 this.transform.GetChild(0).gameObject.SetActive(true);
-            else
+                this.transform.GetChild(1).gameObject.SetActive(true);
+            }
+            else {
                 this.transform.GetChild(0).gameObject.SetActive(false);
-        else
+                this.transform.GetChild(1).gameObject.SetActive(false);
+            }
+        else {
             this.transform.GetChild(0).gameObject.SetActive(true);
+            this.transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 }

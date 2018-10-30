@@ -146,7 +146,8 @@ public class HexUnit : MonoBehaviour {
 		if (!currentTravelLocation) {
 			currentTravelLocation = pathToTravel[0];
 		}
-		Grid.DecreaseVisibility(currentTravelLocation, VisionRange);
+        if(this.Faccao=="Visokea")
+		    Grid.DecreaseVisibility(currentTravelLocation, VisionRange);
 		int currentColumn = currentTravelLocation.ColumnIndex;
 
 		float t = Time.deltaTime * travelSpeed;
@@ -170,7 +171,8 @@ public class HexUnit : MonoBehaviour {
 			}
 
 			c = (b + currentTravelLocation.Position) * 0.5f;
-			Grid.IncreaseVisibility(pathToTravel[i], VisionRange);
+            if(this.Faccao=="Visokea")
+			    Grid.IncreaseVisibility(pathToTravel[i], VisionRange);
 
 			for (; t < 1f; t += Time.deltaTime * travelSpeed) {
 				transform.localPosition = Bezier.GetPoint(a, b, c, t);
@@ -179,7 +181,8 @@ public class HexUnit : MonoBehaviour {
 				transform.localRotation = Quaternion.LookRotation(d);
 				yield return null;
 			}
-			Grid.DecreaseVisibility(pathToTravel[i], VisionRange);
+            if(this.Faccao=="Visokea")
+			    Grid.DecreaseVisibility(pathToTravel[i], VisionRange);
 			t -= 1f;
 		}
 		currentTravelLocation = null;
@@ -187,7 +190,8 @@ public class HexUnit : MonoBehaviour {
 		a = c;
 		b = location.Position;
 		c = b;
-		Grid.IncreaseVisibility(location, VisionRange);
+        if(this.Faccao=="Visokea")
+		    Grid.IncreaseVisibility(location, VisionRange);
 		for (; t < 1f; t += Time.deltaTime * travelSpeed) {
 			transform.localPosition = Bezier.GetPoint(a, b, c, t);
 			Vector3 d = Bezier.GetDerivative(a, b, c, t);

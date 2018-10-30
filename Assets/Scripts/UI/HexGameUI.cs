@@ -83,8 +83,17 @@ public class HexGameUI : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			HexCity.DeactiveAllCitiesMenus ();
 		}
-		if(Input.GetButtonDown("Jump"))
+		if(Input.GetButtonDown("Jump")) {
 			grid.Pass();
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
+                    Debug.Log("entrou for HL");
+                        if(selectedUnit)
+			                if (selectedUnit.Location.GetNeighbor(d))
+                                if (selectedUnit.Location.GetNeighbor(d).Unit)
+                                    if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao)
+				                        selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
+            }
+        }
 	}
 
 	//selects the actual city and disables any different city menu
