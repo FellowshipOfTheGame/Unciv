@@ -25,8 +25,17 @@ public class AIbrain : MonoBehaviour {
     }
 
     IEnumerator UnitAction(HexUnit U) {
+        for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
+                if (U.Location.GetNeighbor(D))
+                    if (U.Location.GetNeighbor(D).Unit)
+                        if(U.Location.GetNeighbor(D).Unit.Faccao!=U.Faccao){ 
+				            U.Attack(U.Location.GetNeighbor(D).Unit);
+                            i=3;
+                            break;
+                        }
+            }
+        
         if(i<3) {
-
             //se nao tiver ninguem para atacar
             HexDirection d = (HexDirection)Random.Range(0,6);
                 grid.FindPath(U.Location, U.Location.GetNeighbor(d), U);
