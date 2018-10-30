@@ -18,11 +18,12 @@ public class Healthbar : MonoBehaviour {
         maxHP=curHP=HU.HitP;
         HB=HBC.transform.GetChild(0).gameObject.GetComponent<Image>();
         HBcalc();
-        Camera = GameObject.FindGameObjectWithTag("MainaCamera").GetComponent<Camera>();
+        Camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     public void SetHP(int hp) { 
         curHP = (float)hp;    
+        HBcalc();
     }
 
     private void HBcalc() {

@@ -446,7 +446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HB: {fileID: 114094395274135284}
   CanMove: 1
-  ATK: 10
+  ATK: 15
   SPD: 10
   HitP: 100
   DEF: 10
@@ -579,7 +579,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1.5}
-  m_SizeDelta: {x: 10, y: 3}
+  m_SizeDelta: {x: 16, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224677041094160660
 RectTransform:
@@ -598,5 +598,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 11}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 15, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
