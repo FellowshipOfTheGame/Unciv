@@ -101,7 +101,7 @@ public class HexUnit : MonoBehaviour {
 
 	public void UpdateHP() { 
 		if(HitP<=0)
-            Die();
+            Grid.RemoveUnit(this);
 	}
 
 	public virtual int VisionRange {

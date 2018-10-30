@@ -9,6 +9,8 @@ public class HexGrid : MonoBehaviour {
 	public int cellCountX = 20, cellCountZ = 15;
 
     public AIbrain AB;
+    public Text turns;
+    private int turn =0;
 
 	public bool wrapping;
 
@@ -77,6 +79,7 @@ public class HexGrid : MonoBehaviour {
             c.Resources+=c.ResPT;    
         }
         AB.Activate();
+        turns.text = "Turn: " + (++turn).ToString();
 	}
 
 	//Adds an city to the cell (identical to AddUnit())
