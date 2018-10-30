@@ -1901,6 +1901,12 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 190979344}
   m_CullTransparentMesh: 0
+--- !u!114 &199244207 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114546415984277552, guid: d1da47604a0ce9a4d9420b21c9c0814a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1253573828}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &203294115
 GameObject:
   m_ObjectHideFlags: 0
@@ -11471,7 +11477,7 @@ MonoBehaviour:
   cellCountX: 20
   cellCountZ: 15
   AB: {fileID: 1865193396}
-  turns: {fileID: 0}
+  turns: {fileID: 199244207}
   wrapping: 1
   cellPrefab: {fileID: 11422220, guid: 94c2312396697489abc866a188f80152, type: 2}
   cellLabelPrefab: {fileID: 11470134, guid: f68794ca03b6f4510b9a5bd6ee9ba2f4, type: 2}
@@ -13798,6 +13804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Units: []
+  grid: {fileID: 1571186511}
   Win: {fileID: 2012569022}
 --- !u!114 &1865193397
 MonoBehaviour:
@@ -13805,7 +13812,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1865193394}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bfbf7ba9b203fc4db3c71673679ece2, type: 3}
   m_Name: 
