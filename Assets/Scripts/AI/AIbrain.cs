@@ -16,6 +16,7 @@ public class AIbrain : MonoBehaviour {
         if(Units.Count<=0) { 
             //Game Over Player Won!
             Win.gameObject.SetActive(true);
+            return;
         }
 
         foreach (var U in Units) { 
