@@ -25,6 +25,7 @@ public class HexGrid : MonoBehaviour {
 	public GameObject cityMenuCanvas;
 
 	public Texture2D noiseSource;
+    private Player P;
 
 	public int seed;
 
@@ -55,6 +56,7 @@ public class HexGrid : MonoBehaviour {
 	HexCellShaderData cellShaderData;
 
 	void Awake () {
+        P = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		HexMetrics.noiseSource = noiseSource;
 		HexMetrics.InitializeHashGrid(seed);
 		unitPrefabs=unitsP;
@@ -76,7 +78,7 @@ public class HexGrid : MonoBehaviour {
             hu.canAttack=true;
 		}
         foreach (var c in cities) { 
-            c.Resources+=c.ResPT;    
+            P.SetResources(c.ResPT);    
         }
         AB.Activate();
         turns.text = "Turn: " + (++turn).ToString();
@@ -518,7 +520,7 @@ public class HexGrid : MonoBehaviour {
         }
 		for (int i = 0; i < units.Count; i++) {
 			HexUnit unit = units[i];
-            if(unit.Faccao=="Visokea")
+            if(unit.Faccao==P.Faccao)
 			    IncreaseVisibility(unit.Location, unit.VisionRange);
 		}
         

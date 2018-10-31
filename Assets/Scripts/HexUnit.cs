@@ -31,7 +31,7 @@ public class HexUnit : MonoBehaviour {
 			}
 			location = value;
 			value.Unit = this;
-            if(Faccao=="Visokea")
+            if(Faccao==P.Faccao)
 			    Grid.IncreaseVisibility(value, VisionRange);
 			transform.localPosition = value.Position;
 			Grid.MakeChildOfColumn(transform, value.ColumnIndex);
@@ -50,6 +50,8 @@ public class HexUnit : MonoBehaviour {
 		}
 	}
 
+    private Player P;
+
 	/// <summary>
 	/// INICIO DOS VALORES ESPECICOS; 
 	/// </summary>
@@ -66,14 +68,16 @@ public class HexUnit : MonoBehaviour {
 	public int DEF;
 	public int RNG;
 
-    public int cost;
+    public string cost;
 
     public bool canAttack;
 
 	//atributo de controle;
 	public string Faccao; 
 
-	public virtual void Attack(HexUnit Target) { 
+	public virtual void Attack(HexUnit Target) {
+        if(!Location.isNeighbour(Target.Location))
+            return;
 		//verificar se a distancia esta adequada para o ataque ao alvo;
 		var DMG = this.ATK*(1f-Target.DEF/100f);
 		Target.HitP-=(int)DMG; 
@@ -146,7 +150,7 @@ public class HexUnit : MonoBehaviour {
 		if (!currentTravelLocation) {
 			currentTravelLocation = pathToTravel[0];
 		}
-        if(this.Faccao=="Visokea")
+        if(this.Faccao==P.Faccao)
 		    Grid.DecreaseVisibility(currentTravelLocation, VisionRange);
 		int currentColumn = currentTravelLocation.ColumnIndex;
 
@@ -171,7 +175,7 @@ public class HexUnit : MonoBehaviour {
 			}
 
 			c = (b + currentTravelLocation.Position) * 0.5f;
-            if(this.Faccao=="Visokea")
+            if(this.Faccao==P.Faccao)
 			    Grid.IncreaseVisibility(pathToTravel[i], VisionRange);
 
 			for (; t < 1f; t += Time.deltaTime * travelSpeed) {
@@ -181,7 +185,7 @@ public class HexUnit : MonoBehaviour {
 				transform.localRotation = Quaternion.LookRotation(d);
 				yield return null;
 			}
-            if(this.Faccao=="Visokea")
+            if(this.Faccao==P.Faccao)
 			    Grid.DecreaseVisibility(pathToTravel[i], VisionRange);
 			t -= 1f;
 		}
@@ -190,7 +194,7 @@ public class HexUnit : MonoBehaviour {
 		a = c;
 		b = location.Position;
 		c = b;
-        if(this.Faccao=="Visokea")
+        if(this.Faccao==P.Faccao)
 		    Grid.IncreaseVisibility(location, VisionRange);
 		for (; t < 1f; t += Time.deltaTime * travelSpeed) {
 			transform.localPosition = Bezier.GetPoint(a, b, c, t);
@@ -287,10 +291,11 @@ public class HexUnit : MonoBehaviour {
 	}
 
 	void OnEnable () {
+        P = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		if (location) {
 			transform.localPosition = location.Position;
 			if (currentTravelLocation) {
-                if(Faccao=="Visokea"){
+                if(Faccao==P.Faccao){
 				    Grid.IncreaseVisibility(location, VisionRange);
 				    Grid.DecreaseVisibility(currentTravelLocation, VisionRange);
                 }
@@ -299,27 +304,27 @@ public class HexUnit : MonoBehaviour {
 		}
 	}
 
-	//	void OnDrawGizmos () {
-	//		if (pathToTravel == null || pathToTravel.Count == 0) {
-	//			return;
-	//		}
-	//
-	//		Vector3 a, b, c = pathToTravel[0].Position;
-	//
-	//		for (int i = 1; i < pathToTravel.Count; i++) {
-	//			a = c;
-	//			b = pathToTravel[i - 1].Position;
-	//			c = (b + pathToTravel[i].Position) * 0.5f;
-	//			for (float t = 0f; t < 1f; t += 0.1f) {
-	//				Gizmos.DrawSphere(Bezier.GetPoint(a, b, c, t), 2f);
-	//			}
-	//		}
-	//
-	//		a = c;
-	//		b = pathToTravel[pathToTravel.Count - 1].Position;
-	//		c = b;
-	//		for (float t = 0f; t < 1f; t += 0.1f) {
-	//			Gizmos.DrawSphere(Bezier.GetPoint(a, b, c, t), 2f);
-	//		}
-	//	}
+    //	void OnDrawGizmos () {
+    //		if (pathToTravel == null || pathToTravel.Count == 0) {
+    //			return;
+    //		}
+    //
+    //		Vector3 a, b, c = pathToTravel[0].Position;
+    //
+    //		for (int i = 1; i < pathToTravel.Count; i++) {
+    //			a = c;
+    //			b = pathToTravel[i - 1].Position;
+    //			c = (b + pathToTravel[i].Position) * 0.5f;
+    //			for (float t = 0f; t < 1f; t += 0.1f) {
+    //				Gizmos.DrawSphere(Bezier.GetPoint(a, b, c, t), 2f);
+    //			}
+    //		}
+    //
+    //		a = c;
+    //		b = pathToTravel[pathToTravel.Count - 1].Position;
+    //		c = b;
+    //		for (float t = 0f; t < 1f; t += 0.1f) {
+    //			Gizmos.DrawSphere(Bezier.GetPoint(a, b, c, t), 2f);
+    //		}
+    //	}
 }

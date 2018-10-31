@@ -8,14 +8,15 @@ public class HexCity : MonoBehaviour {
 
 	public static GameObject cityMenuCanvas;
 	public static GameObject cityMenu;
-    Text Res;
+    
 	GameObject individualCityMenu;
 	HexCell location;
 	float orientation;
 	bool canSpawn;
 
-    public int Resources=30;
-    public int ResPT=5;
+    private Player P;
+    public string ResPT="5";
+    public string cost="50";
 
 	//informs if the city menu is active
 	public bool IsCityMenuActivated {
@@ -60,6 +61,7 @@ public class HexCity : MonoBehaviour {
 	}
 
 	void Awake() {
+        P = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		//instantiate an city menu for this city
 		individualCityMenu = Instantiate(cityMenu);
 		//puts it in city canvas
@@ -67,7 +69,7 @@ public class HexCity : MonoBehaviour {
 		//sets the button to spawning units
 		individualCityMenu.GetComponentInChildren<Button> ().onClick.AddListener(SpawnUnit);
 
-        Res = individualCityMenu.transform.GetChild(1).GetComponent<Text>();
+        
 		//moves the panel
 		Vector3 aux = new Vector3(475, 0, 0);
 		individualCityMenu.transform.localPosition = aux;
@@ -75,7 +77,7 @@ public class HexCity : MonoBehaviour {
 	}
 
 	void Update () {
-        Res.text = "Resources: " + Resources.ToString();
+        
 		//if an unity can be spawned
 		if (canSpawn == true) {
 			//when right click on a cell
@@ -87,9 +89,9 @@ public class HexCity : MonoBehaviour {
 					//if the correct cell is found, instantiate an unit there
 					if (location.GetNeighbor(d) && location.GetNeighbor (d) == aux2 && !(aux2 = location.GetNeighbor (d)).Unit && !aux2.IsUnderwater && location.GetElevationDifference(d) < 2
 						&& !location.GetNeighbor(d).city) {
-                        if(Resources >= HexGrid.unitPrefabs[0].cost){
+                        if(P.CanCreate(HexGrid.unitPrefabs[0].cost)){
 						    CreateUnit (aux2);
-                            Resources-=HexGrid.unitPrefabs[0].cost;
+                            P.SetResources(HexGrid.unitPrefabs[0].cost);
                         }
 					}
 					location.GetNeighbor (d).DisableHighlight ();
@@ -139,7 +141,7 @@ public class HexCity : MonoBehaviour {
 
 	void CreateUnit (HexCell cell) {
 		if (cell && !cell.Unit) {
-			Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[0]), cell, Random.Range(0f, 360f), "Visokea");
+			Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[0]), cell, Random.Range(0f, 360f), P.Faccao);
 		}
 	}
 

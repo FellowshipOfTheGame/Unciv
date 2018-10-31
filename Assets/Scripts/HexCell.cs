@@ -329,6 +329,14 @@ public class HexCell : MonoBehaviour {
 		}
 	}
 
+    public bool isNeighbour(HexCell other) { 
+        for(HexDirection d = HexDirection.NE; d<=HexDirection.NW;d++) { 
+            if(other == this.GetNeighbor(d))
+                return true;
+        }
+        return false;
+    }
+
 	public HexCell GetNeighbor (HexDirection direction) {
 		return neighbors[(int)direction];
 	}
