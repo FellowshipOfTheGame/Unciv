@@ -23,12 +23,11 @@ public class VisokeaF : HexUnit {
         HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
 		int moveCost;
 		if (fromCell.HasRoadThroughEdge(direction)) {
-			moveCost = 2;
+			moveCost = 4;
 		}
 		else {
 			moveCost = 5;
-			moveCost +=
-				toCell.UrbanLevel + toCell.FarmLevel + toCell.PlantLevel;
+			
 		}
 		return moveCost;
     }

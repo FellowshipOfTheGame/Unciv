@@ -8,6 +8,10 @@ public class HexGrid : MonoBehaviour {
 
 	public int cellCountX = 20, cellCountZ = 15;
 
+    public AIbrain AB;
+    public Text turns;
+    private int turn =0;
+
 	public bool wrapping;
 
 	public HexCell cellPrefab;
@@ -21,6 +25,7 @@ public class HexGrid : MonoBehaviour {
 	public GameObject cityMenuCanvas;
 
 	public Texture2D noiseSource;
+    private Player P;
 
 	public int seed;
 
@@ -51,6 +56,7 @@ public class HexGrid : MonoBehaviour {
 	HexCellShaderData cellShaderData;
 
 	void Awake () {
+        P = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		HexMetrics.noiseSource = noiseSource;
 		HexMetrics.InitializeHashGrid(seed);
 		unitPrefabs=unitsP;
@@ -71,6 +77,11 @@ public class HexGrid : MonoBehaviour {
 			hu.CanMove=true;
             hu.canAttack=true;
 		}
+        foreach (var c in cities) { 
+            P.SetResources(c.ResPT);    
+        }
+        AB.Activate();
+        turns.text = "Turn: " + (++turn).ToString();
 	}
 
 	//Adds an city to the cell (identical to AddUnit())
@@ -92,11 +103,15 @@ public class HexGrid : MonoBehaviour {
 		unit.Location = location;
 		unit.Orientation = orientation;
         unit.Faccao=Fac;
+        if(Fac=="Barbaros")
+            AB.Units.Add(unit);
 		unit.CanMove = false;
 	}
 
 	public void RemoveUnit (HexUnit unit) {
 		units.Remove(unit);
+        if(unit.Faccao=="Barbaros")
+            AB.Units.Remove(unit);
 		unit.Die();
 	}
 
@@ -115,6 +130,8 @@ public class HexGrid : MonoBehaviour {
 
 		ClearPath();
 		ClearUnits();
+        ClearCities();
+
 		if (columns != null) {
 			for (int i = 0; i < columns.Length; i++) {
 				Destroy(columns[i].gameObject);
@@ -165,6 +182,13 @@ public class HexGrid : MonoBehaviour {
 			units[i].Die();
 		}
 		units.Clear();
+	}
+
+    void ClearCities () {
+		for (int i = 0; i < cities.Count; i++) {
+			cities[i].Destroy();
+		}
+		cities.Clear();
 	}
 
 	void OnEnable () {
@@ -299,11 +323,17 @@ public class HexGrid : MonoBehaviour {
 		for (int i = 0; i < units.Count; i++) {
 			units[i].Save(writer);
 		}
+
+        writer.Write(cities.Count);
+		for (int i = 0; i < cities.Count; i++) {
+			cities[i].Save(writer);
+		}
 	}
 
 	public void Load (BinaryReader reader, int header) {
 		ClearPath();
 		ClearUnits();
+        ClearCities();
 		int x = 20, z = 15;
 		if (header >= 1) {
 			x = reader.ReadInt32();
@@ -332,6 +362,14 @@ public class HexGrid : MonoBehaviour {
 				HexUnit.Load(reader, this);
 			}
 		}
+
+        if (header >= 6) {
+			int citiesCount = reader.ReadInt32();
+			for (int i = 0; i < citiesCount; i++) {
+				HexCity.Load(reader, this);
+			}
+		}
+        
 
 		cellShaderData.ImmediateMode = originalImmediateMode;
 	}
@@ -482,7 +520,7 @@ public class HexGrid : MonoBehaviour {
         }
 		for (int i = 0; i < units.Count; i++) {
 			HexUnit unit = units[i];
-            if(unit.Faccao=="Visokea")
+            if(unit.Faccao==P.Faccao)
 			    IncreaseVisibility(unit.Location, unit.VisionRange);
 		}
         
