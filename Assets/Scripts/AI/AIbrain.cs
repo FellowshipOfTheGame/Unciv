@@ -10,8 +10,6 @@ public class AIbrain : MonoBehaviour {
 
     public Canvas Win;
 
-    private int i;
-
     public void Activate() {
         if(Units.Count<=0) { 
             //Game Over Player Won!
@@ -20,34 +18,96 @@ public class AIbrain : MonoBehaviour {
         }
 
         foreach (var U in Units) { 
-            i=0;
-            StartCoroutine(UnitAction(U));    
+            MakeValidMove(U);   
         }    
     }
 
-    IEnumerator UnitAction(HexUnit U) {
+    bool TentaAtacar(HexUnit U){ 
         for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
                 if (U.Location.GetNeighbor(D))
                     if (U.Location.GetNeighbor(D).Unit)
-                        if(U.Location.GetNeighbor(D).Unit.Faccao!=U.Faccao){ 
+                        if(U.Location.GetNeighbor(D).Unit.Faccao!="Barbaros" && U.Location.GetNeighbor(D).Unit.Faccao!="Minor") { //se nao for menor ou barbaro
 				            U.Attack(U.Location.GetNeighbor(D).Unit);
-                            i=3;
-                            break;
+                            return true;
+                        }
+        }
+        return false;
+    }
+
+    void MakeValidMove(HexUnit U) { 
+
+        int[] dir= new int[] {-1,-1}; //vetor para evitar que a unidade retorne durante o movimento.
+        
+        bool valid = false;
+        HexCell aux, final = U.Location; //aux faz varredura, final salva a celula que a unidade para.
+
+        if(TentaAtacar(U)) //se atacar nao precisa mais mover.
+            return;
+
+        bool canMove=false; //verifica se existe movimento possivel.
+        for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
+            grid.FindPath(U.Location,U.Location.GetNeighbor(D), U);
+            if (grid.HasPath)
+                canMove=true;
+            grid.ClearPath();
+        }
+        if(!canMove)
+            return;
+
+        while(!valid) {
+
+            //sorteia uma direcao e verifica se ela nao eh o retorno de um movimento ja realizado.
+            HexDirection d = (HexDirection)Random.Range(0,6);
+            if(dir[1]!=-1 && (HexDirection)dir[1] == d)
+                continue;
+            if(dir[0]!=-1 && (HexDirection)dir[0] == d)
+                continue;
+            
+            //uma vez que o sorteio resulte em uma direcao valida, verifica se a nova celula eh valida: esta ao lado de um inimigo ou nao possui nenhum aliado em volta.
+            aux=final.GetNeighbor(d);
+            for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
+                if (aux.GetNeighbor(D))
+                    if (aux.GetNeighbor(D).Unit)
+                        if(aux.GetNeighbor(D).Unit.Faccao!="Barbaros" && aux.GetNeighbor(D).Unit.Faccao!="Minor"){ 
+				            valid = true; //tem unidade atacavel
                         }
             }
-        
-        if(i<3) {
-            //se nao tiver ninguem para atacar
-            HexDirection d = (HexDirection)Random.Range(0,6);
-                grid.FindPath(U.Location, U.Location.GetNeighbor(d), U);
+        /*
+            bool cont=false;
+            for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
+                if (aux.GetNeighbor(D))
+                    if (aux.GetNeighbor(D).Unit)
+                        if ((aux.GetNeighbor(D).Unit.Faccao=="Barbaros" || aux.GetNeighbor(D).Unit.Faccao=="Minor") && !valid) {
+                            // se for faccao da IA e nao tem unidade atacavel em volta, melhor nao seguir na direcao;
+				            cont=true;
+                        }
+            }
+            if(cont)
+                continue;
+                */
+                grid.FindPath(final,final.GetNeighbor(d), U);
                     if (grid.HasPath) {
-			            U.Travel(grid.GetPath());
-			                grid.ClearPath();
+
+			            final = final.GetNeighbor(d);
+			            grid.ClearPath();
+
+                        if(dir[0]==-1)
+                            dir[0]=(int)d.Opposite();
+                        else if(dir[1]==-1)
+                            dir[1]=(int)d.Opposite();
+                        else
+                            valid = true;
 		            }
-            i++;
-            yield return new WaitForSeconds(1.5f);
-            StartCoroutine(UnitAction(U));
+                    else
+                        valid = false;
+                
+                
         }
-        yield return new WaitForSeconds(.1f);
+        grid.FindPath(U.Location,final,U);
+            if(grid.HasPath) { 
+                U.Travel(grid.GetPath());
+                grid.ClearPath();
+            }
+        TentaAtacar(U);
     }
 }

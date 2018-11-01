@@ -129,7 +129,7 @@ public class HexUnit : MonoBehaviour {
 	}
 
 	//says if a cell is valid to be occupied 
-	public bool IsValidDestination (HexCell cell) {
+	public virtual bool IsValidDestination (HexCell cell) {
 		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit && !cell.city;
 	}
 

@@ -20,7 +20,7 @@ public class VisokeaF : HexUnit {
         if (!IsValidDestination(toCell)) {
 			return -1;
 		}
-        HexEdgeType edgeType = fromCell.GetEdgeType(toCell);
+        
 		int moveCost;
 		if (fromCell.HasRoadThroughEdge(direction)) {
 			moveCost = 4;
