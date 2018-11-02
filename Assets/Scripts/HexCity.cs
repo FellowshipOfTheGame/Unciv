@@ -94,7 +94,7 @@ public class HexCity : MonoBehaviour {
                             P.BuyUnit(HexGrid.unitPrefabs[0].cost);
                         }
 					}
-					location.GetNeighbor (d).DisableHighlight ();
+					
 				}
 				canSpawn = false;
 			}
@@ -112,6 +112,9 @@ public class HexCity : MonoBehaviour {
 	//simply deactives the city menu
 	public void DeactiveCityMenu() {
 		individualCityMenu.SetActive (false);
+        for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
+	        location.GetNeighbor (d).DisableHighlight ();
+		}
 		return;
 	}
 
@@ -142,6 +145,10 @@ public class HexCity : MonoBehaviour {
 	void CreateUnit (HexCell cell) {
 		if (cell && !cell.Unit) {
 			Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[0]), cell, Random.Range(0f, 360f), P.Faccao);
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
+			    location.GetNeighbor (d).DisableHighlight ();
+		    }
+            
 		}
 	}
 

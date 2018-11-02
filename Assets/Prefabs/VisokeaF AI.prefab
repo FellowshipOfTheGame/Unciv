@@ -454,6 +454,7 @@ MonoBehaviour:
   cost: 10
   canAttack: 0
   Faccao: 
+  isF: 1
 --- !u!114 &114413852379389806
 MonoBehaviour:
   m_ObjectHideFlags: 1
