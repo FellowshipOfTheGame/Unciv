@@ -10,7 +10,7 @@ public class dummy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SLM.Load(Path.Combine(Application.dataPath, Random.Range(1,10).ToString()+".map"));
+		SLM.Load(Path.Combine(Application.dataPath, Random.Range(1,7).ToString()+".map"));
 	}
 
 
