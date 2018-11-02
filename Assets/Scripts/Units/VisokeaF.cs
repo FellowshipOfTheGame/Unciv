@@ -16,6 +16,10 @@ public class VisokeaF : HexUnit {
 		}
 	}
 
+    public override bool IsValidDestination(HexCell cell) {
+        return cell.IsExplored && (cell.WaterLevel-cell.Elevation < 2) && !cell.Unit && !cell.city && !cell.Fort;
+    }
+
     public override int GetMoveCost(HexCell fromCell, HexCell toCell, HexDirection direction) {
         if (!IsValidDestination(toCell)) {
 			return -1;
