@@ -57,6 +57,7 @@ public class HexGrid : MonoBehaviour {
 	List<HexUnit> units = new List<HexUnit>();
 	List<HexCity> cities = new List<HexCity> ();
     public List<HexFort> Forts = new List<HexFort> ();
+    public HexGameUI HGU;
 
 	HexCellShaderData cellShaderData;
 
@@ -89,6 +90,8 @@ public class HexGrid : MonoBehaviour {
         }
         AB.Activate();
         turns.text = "Turn: " + (++turn).ToString();
+
+        HGU.HighLight();
 	}
 
 	//Adds an city to the cell (identical to AddUnit())
@@ -116,20 +119,24 @@ public class HexGrid : MonoBehaviour {
 	}
 
 	public void AddUnit (HexUnit unit, HexCell location, float orientation, string Fac) {
-		units.Add(unit);
+
 		unit.Grid = this;
 		unit.Location = location;
 		unit.Orientation = orientation;
         unit.Faccao=Fac;
         if(Fac=="Barbaros" || Fac=="Minor")
             AB.Units.Add(unit);
+        else
+            units.Add(unit);
 		unit.CanMove = false;
 	}
 
 	public void RemoveUnit (HexUnit unit) {
-		units.Remove(unit);
+		
         if(unit.Faccao=="Barbaros" || unit.Faccao=="Minor")
             AB.Units.Remove(unit);
+        else
+            units.Remove(unit);
 		unit.Die();
 	}
 
@@ -196,9 +203,15 @@ public class HexGrid : MonoBehaviour {
 	}
 
 	void ClearUnits () {
+
 		for (int i = 0; i < units.Count; i++) {
 			units[i].Die();
 		}
+
+        for (int i = 0; i < AB.Units.Count; i++) {
+			AB.Units[i].Die();
+		}
+
 		units.Clear();
 	}
 

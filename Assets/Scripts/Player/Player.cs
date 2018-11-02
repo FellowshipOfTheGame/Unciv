@@ -8,7 +8,7 @@ public class Player : MonoBehaviour {
     private string Resources;
     public string Faccao;
 
-    //Text Res;
+    public Text Res;
 
     private void Awake() {
         //Res = individualCityMenu.transform.GetChild(1).GetComponent<Text>();
@@ -16,7 +16,8 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
-        //Res.text = "Resources: " + Resources;
+        Res.text = "Resources: " + Resources;
+
     }
 
     public void SetResources(string Bonus){ 

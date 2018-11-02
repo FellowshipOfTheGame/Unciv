@@ -13,6 +13,8 @@ public class HexGameUI : MonoBehaviour {
 
 	HexCity selectedCity;
 
+    private int turn;
+
 	public void SetEditMode (bool toggle) {
 		enabled = !toggle;
 		grid.ShowUI(!toggle);
@@ -30,7 +32,7 @@ public class HexGameUI : MonoBehaviour {
 			grid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
 	}
 
-	void Update () {
+    void Update () {
 		if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (selectedUnit) {
 				if (Input.GetMouseButtonDown (1)) {
@@ -50,13 +52,7 @@ public class HexGameUI : MonoBehaviour {
                     if(selectedUnit.CanMove) {
 					    DoMove ();
                         if(selectedUnit.canAttack)
-                            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
-                                Debug.Log("entrou for HL");
-			                    if (selectedUnit.Location.GetNeighbor(d))
-                                    if (selectedUnit.Location.GetNeighbor(d).Unit)
-                                        if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao)
-				                            selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
-                            }
+                            HighLight();
                     }
 				} 
 				else {
@@ -83,18 +79,18 @@ public class HexGameUI : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			HexCity.DeactiveAllCitiesMenus ();
 		}
-		if(Input.GetButtonDown("Jump")) {
-			grid.Pass();
-            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
-                    Debug.Log("entrou for HL");
+		
+	}
+
+    public void HighLight() { 
+        for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
                         if(selectedUnit)
 			                if (selectedUnit.Location.GetNeighbor(d))
                                 if (selectedUnit.Location.GetNeighbor(d).Unit)
                                     if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao)
 				                        selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
-            }
-        }
-	}
+        }    
+    }
 
 	//selects the actual city and disables any different city menu
 	void DoCitySelection () {
@@ -129,13 +125,7 @@ public class HexGameUI : MonoBehaviour {
 		}
         if(selectedUnit)
             if(selectedUnit.canAttack)
-                for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
-                    Debug.Log("entrou for HL");
-			        if (selectedUnit.Location.GetNeighbor(d))
-                        if (selectedUnit.Location.GetNeighbor(d).Unit) 
-                            if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao) 
-				                selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
-		        }
+                HighLight();
 	}
 
 	void DoPathfinding () {
