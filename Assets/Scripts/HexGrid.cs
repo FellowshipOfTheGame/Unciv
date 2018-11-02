@@ -156,6 +156,7 @@ public class HexGrid : MonoBehaviour {
 		ClearPath();
 		ClearUnits();
         ClearCities();
+        ClearForts();
 
 		if (columns != null) {
 			for (int i = 0; i < columns.Length; i++) {
@@ -213,6 +214,7 @@ public class HexGrid : MonoBehaviour {
 		}
 
 		units.Clear();
+        AB.Units.Clear();
 	}
 
     void ClearCities () {
@@ -223,7 +225,7 @@ public class HexGrid : MonoBehaviour {
 	}
 
     void ClearForts () {
-		for (int i = 0; i < cities.Count; i++) {
+		for (int i = 0; i < Forts.Count; i++) {
 			Forts[i].Destroy();
 		}
 		Forts.Clear();
@@ -357,9 +359,9 @@ public class HexGrid : MonoBehaviour {
 			cells[i].Save(writer);
 		}
 
-		writer.Write(units.Count);
-		for (int i = 0; i < units.Count; i++) {
-			units[i].Save(writer);
+		writer.Write(AB.Units.Count);
+		for (int i = 0; i < AB.Units.Count; i++) {
+			AB.Units[i].Save(writer);
 		}
 
         writer.Write(cities.Count);
@@ -367,7 +369,7 @@ public class HexGrid : MonoBehaviour {
 			cities[i].Save(writer);
 		}
         writer.Write(Forts.Count);
-		for (int i = 0; i < cities.Count; i++) {
+		for (int i = 0; i < Forts.Count; i++) {
 			Forts[i].Save(writer);
 		}
 	}
@@ -377,6 +379,7 @@ public class HexGrid : MonoBehaviour {
 		ClearUnits();
         ClearCities();
         ClearForts();
+
 		int x = 20, z = 15;
 		if (header >= 1) {
 			x = reader.ReadInt32();

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HexUnitAI : HexUnit {
 
+    public bool isF;
+
 	public override int VisionRange {
 		get {
 			return 0;
@@ -17,8 +19,13 @@ public class HexUnitAI : HexUnit {
     }
 
     public override bool IsValidDestination (HexCell cell) {
-        if(Faccao=="Minor")
+        if(Faccao=="Minor") {
+            if (isF)
+                return (cell.WaterLevel-cell.Elevation < 3) && !cell.Unit && !cell.city && !cell.Fort;
             return !cell.IsUnderwater && !cell.Unit && !cell.city && !cell.Fort;
+        }
+        if (isF)
+            return cell.IsExplored && (cell.WaterLevel-cell.Elevation < 3) && !cell.Unit && !cell.city && !cell.Fort;
 		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit && !cell.city && !cell.Fort;
 	}
 
