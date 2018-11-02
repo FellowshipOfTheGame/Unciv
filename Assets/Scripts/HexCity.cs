@@ -166,7 +166,7 @@ public class HexCity : MonoBehaviour {
 		HexCoordinates coordinates = HexCoordinates.Load(reader);
 		float orientation = reader.ReadSingle();
 		grid.AddCity(
-			Instantiate(HexGrid.cityPrefabs[0]), grid.GetCell(coordinates), orientation
+			Instantiate(HexGrid.cityPrefab), grid.GetCell(coordinates), orientation
 		);
 	}
 }

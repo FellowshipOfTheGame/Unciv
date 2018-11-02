@@ -18,9 +18,13 @@ public class HexGrid : MonoBehaviour {
 	public Text cellLabelPrefab;
 	public HexGridChunk chunkPrefab;
     public HexUnit[] unitsP;
-	public HexCity[] citiesP;
+    public HexUnit[] unitsI;
+	public HexCity citiesP;
+    public HexFort Fort;
 	public static HexUnit[] unitPrefabs;
-	public static HexCity[] cityPrefabs;
+    public static HexUnit[] unitPrefabsI;
+	public static HexCity cityPrefab;
+    public static HexFort fortPrefab;
 	public GameObject cityMenuPrefab;
 	public GameObject cityMenuCanvas;
 
@@ -52,6 +56,7 @@ public class HexGrid : MonoBehaviour {
 
 	List<HexUnit> units = new List<HexUnit>();
 	List<HexCity> cities = new List<HexCity> ();
+    public List<HexFort> Forts = new List<HexFort> ();
 
 	HexCellShaderData cellShaderData;
 
@@ -60,7 +65,9 @@ public class HexGrid : MonoBehaviour {
 		HexMetrics.noiseSource = noiseSource;
 		HexMetrics.InitializeHashGrid(seed);
 		unitPrefabs=unitsP;
-        cityPrefabs=citiesP;
+        unitPrefabsI=unitsI;
+        cityPrefab=citiesP;
+        fortPrefab=Fort;
 		
 		//stores the menu prefab
 		HexCity.cityMenu = cityMenuPrefab;
@@ -91,6 +98,17 @@ public class HexGrid : MonoBehaviour {
 		city.Location = location;
 		city.Orientation = orientation;
 	}
+    public void AddFort (HexFort city, HexCell location, float orientation) {
+		Forts.Add (city);
+		city.Grid = this;
+		city.Location = location;
+		city.Orientation = orientation;
+	}
+
+    public void RemoveFort (HexFort city) {
+		Forts.Remove (city);
+		city.Destroy();
+	}
 	//Removes an city (identical to RemoveUnit)
 	public void RemoveCity (HexCity city) {
 		cities.Remove (city);
@@ -103,14 +121,14 @@ public class HexGrid : MonoBehaviour {
 		unit.Location = location;
 		unit.Orientation = orientation;
         unit.Faccao=Fac;
-        if(Fac=="Barbaros")
+        if(Fac=="Barbaros" || Fac=="Minor")
             AB.Units.Add(unit);
 		unit.CanMove = false;
 	}
 
 	public void RemoveUnit (HexUnit unit) {
 		units.Remove(unit);
-        if(unit.Faccao=="Barbaros")
+        if(unit.Faccao=="Barbaros" || unit.Faccao=="Minor")
             AB.Units.Remove(unit);
 		unit.Die();
 	}
@@ -189,6 +207,13 @@ public class HexGrid : MonoBehaviour {
 			cities[i].Destroy();
 		}
 		cities.Clear();
+	}
+
+    void ClearForts () {
+		for (int i = 0; i < cities.Count; i++) {
+			Forts[i].Destroy();
+		}
+		Forts.Clear();
 	}
 
 	void OnEnable () {
@@ -328,12 +353,17 @@ public class HexGrid : MonoBehaviour {
 		for (int i = 0; i < cities.Count; i++) {
 			cities[i].Save(writer);
 		}
+        writer.Write(Forts.Count);
+		for (int i = 0; i < cities.Count; i++) {
+			Forts[i].Save(writer);
+		}
 	}
 
 	public void Load (BinaryReader reader, int header) {
 		ClearPath();
 		ClearUnits();
         ClearCities();
+        ClearForts();
 		int x = 20, z = 15;
 		if (header >= 1) {
 			x = reader.ReadInt32();
@@ -370,7 +400,12 @@ public class HexGrid : MonoBehaviour {
 			}
 		}
         
-
+        if (header >= 7) {
+			int fortsCount = reader.ReadInt32();
+			for (int i = 0; i < fortsCount; i++) {
+				HexFort.Load(reader, this);
+			}
+		}
 		cellShaderData.ImmediateMode = originalImmediateMode;
 	}
 

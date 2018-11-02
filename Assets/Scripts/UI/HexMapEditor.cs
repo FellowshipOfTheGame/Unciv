@@ -152,7 +152,20 @@ public class HexMapEditor : MonoBehaviour {
 	//Now you spawn a city in MapEditor, units are spawned in HexCity
 	public void CreateCity (HexCell cell) {
 		if (cell && !cell.city) {
-			hexGrid.AddCity (Instantiate (HexGrid.cityPrefabs[0]), cell, Random.Range (0f, 360f));
+			hexGrid.AddCity (Instantiate (HexGrid.cityPrefab), cell, Random.Range (0f, 360f));
+		}
+	}
+
+    public void CreateFort (HexCell cell) {
+		if (cell && !cell.Fort) {
+			hexGrid.AddFort (Instantiate (HexGrid.fortPrefab), cell, Random.Range (0f, 360f));
+		}
+	}
+
+    void DestroyFort () {
+		HexCell cell = GetCellUnderCursor();
+		if (cell && cell.Fort) {
+			hexGrid.RemoveFort(cell.Fort);
 		}
 	}
 
@@ -167,7 +180,7 @@ public class HexMapEditor : MonoBehaviour {
     void CreateUnit () {
 		HexCell cell = GetCellUnderCursor();
 		if (cell && !cell.Unit) {
-			hexGrid.AddUnit(Instantiate(HexGrid.unitPrefabs[1]), cell, Random.Range(0f, 360f), "Barbaros");
+			hexGrid.AddUnit(Instantiate(HexGrid.unitPrefabsI[0]), cell, Random.Range(0f, 360f), "Barbaros");
 		}
 	}
 
@@ -228,6 +241,9 @@ public class HexMapEditor : MonoBehaviour {
     private void ApplySpecials(HexCell cell) { 
         if(activeSpecialIndex == 2){ 
             CreateCity(cell);
+        }
+        if(activeSpecialIndex == 1){ 
+            CreateFort(cell);
         }
         
     }

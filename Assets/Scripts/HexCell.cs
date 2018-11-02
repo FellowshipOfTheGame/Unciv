@@ -264,6 +264,8 @@ public class HexCell : MonoBehaviour {
 	//stores if there is a city in the cell
 	public HexCity city { get; set; } 
 
+    public HexFort Fort { get; set; } 
+
 	public HexCell PathFrom { get; set; }
 
 	public int SearchHeuristic { get; set; }

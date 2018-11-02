@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class AIbrain : MonoBehaviour {
 
 	public List<HexUnit> Units;
+
     public HexGrid grid;
 
     public Canvas Win;
@@ -19,7 +20,11 @@ public class AIbrain : MonoBehaviour {
 
         foreach (var U in Units) { 
             MakeValidMove(U);   
-        }    
+        }
+        foreach (var F in grid.Forts) { 
+            F.SpawnUnit();    
+        }
+
     }
 
     bool TentaAtacar(HexUnit U){ 

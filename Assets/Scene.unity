@@ -11520,9 +11520,11 @@ MonoBehaviour:
     type: 2}
   unitsP:
   - {fileID: 114175357579291000, guid: 8ffa2f5407aa3ee49a407567cf157728, type: 2}
+  unitsI:
   - {fileID: 114145814361460364, guid: fd61d9eca48726548b4bf10929168216, type: 2}
-  citiesP:
-  - {fileID: 114230749427516188, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 2}
+  - {fileID: 114229745700856446, guid: e03f5342293102a4eb0a6663df09b969, type: 2}
+  citiesP: {fileID: 114230749427516188, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 2}
+  Fort: {fileID: 114581115360795258, guid: f2967fed6444e43559e32916c2465d27, type: 2}
   cityMenuPrefab: {fileID: 1354805677061132, guid: 019022f3b0ed14fb79e54aa25f6c9671,
     type: 2}
   cityMenuCanvas: {fileID: 987189120}
