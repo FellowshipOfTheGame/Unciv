@@ -91,7 +91,7 @@ public class HexCity : MonoBehaviour {
 						&& !location.GetNeighbor(d).city) {
                         if(P.CanCreate(HexGrid.unitPrefabs[0].cost)){
 						    CreateUnit (aux2);
-                            P.SetResources(HexGrid.unitPrefabs[0].cost);
+                            P.BuyUnit(HexGrid.unitPrefabs[0].cost);
                         }
 					}
 					location.GetNeighbor (d).DisableHighlight ();

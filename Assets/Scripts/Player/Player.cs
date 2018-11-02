@@ -26,6 +26,13 @@ public class Player : MonoBehaviour {
         Resources=resources.ToString(); 
     }
 
+    public void BuyUnit(string Cost) { 
+        int resources=IntParseFast(Resources); 
+        int cost = IntParseFast(Cost); 
+        resources-=cost; 
+        Resources=resources.ToString();
+    }
+
     public bool CanCreate(string cost) {
         return IntParseFast(Resources)>=IntParseFast(cost);
     }
