@@ -17,7 +17,7 @@ public class DevoidF : HexUnit {
 	}
 
    /* public override bool IsValidDestination(HexCell cell) {
-        return cell.IsExplored && !cell.Unit && !cell.city;;
+        return cell.IsExplored && !cell.Unit && !cell.city && !cell.Fort;
     } */
 
     public override int GetMoveCost(HexCell fromCell, HexCell toCell, HexDirection direction) {

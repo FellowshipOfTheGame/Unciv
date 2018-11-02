@@ -18,8 +18,8 @@ public class HexUnitAI : HexUnit {
 
     public override bool IsValidDestination (HexCell cell) {
         if(Faccao=="Minor")
-            return !cell.IsUnderwater && !cell.Unit && !cell.city;
-		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit && !cell.city;
+            return !cell.IsUnderwater && !cell.Unit && !cell.city && !cell.Fort;
+		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit && !cell.city && !cell.Fort;
 	}
 
     public override int GetMoveCost (HexCell fromCell, HexCell toCell, HexDirection direction) {

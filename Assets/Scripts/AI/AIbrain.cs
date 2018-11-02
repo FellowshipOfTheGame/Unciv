@@ -70,6 +70,9 @@ public class AIbrain : MonoBehaviour {
             
             //uma vez que o sorteio resulte em uma direcao valida, verifica se a nova celula eh valida: esta ao lado de um inimigo ou nao possui nenhum aliado em volta.
             aux=final.GetNeighbor(d);
+            if(!aux)
+                continue;
+
             for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
                 if (aux.GetNeighbor(D))
                     if (aux.GetNeighbor(D).Unit)

@@ -130,7 +130,7 @@ public class HexUnit : MonoBehaviour {
 
 	//says if a cell is valid to be occupied 
 	public virtual bool IsValidDestination (HexCell cell) {
-		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit && !cell.city;
+		return cell.IsExplored && !cell.IsUnderwater && !cell.Unit && !cell.city && !cell.Fort;
 	}
 
 	public void Travel (List<HexCell> path) {
