@@ -15550,13 +15550,13 @@ MonoBehaviour:
   highRiseProbability: 0.25
   sinkProbability: 0.2
   landPercentage: 65
-  waterLevel: 1
-  elevationMinimum: 0
-  elevationMaximum: 10
+  waterLevel: 3
+  elevationMinimum: -3
+  elevationMaximum: 9
   mapBorderX: 5
   mapBorderZ: 5
   regionBorder: 5
-  regionCount: 1
+  regionCount: 2
   erosionPercentage: 50
   startingMoisture: 0.1
   evaporationFactor: 0.4
@@ -15566,7 +15566,7 @@ MonoBehaviour:
   windDirection: 5
   windStrength: 4.75
   riverPercentage: 10
-  extraLakeProbability: 0
+  extraLakeProbability: 0.25
   lowTemperature: 0
   highTemperature: 1
   hemisphere: 0
