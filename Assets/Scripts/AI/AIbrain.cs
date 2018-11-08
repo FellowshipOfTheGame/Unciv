@@ -18,8 +18,8 @@ public class AIbrain : MonoBehaviour {
             return;
         }
 
-        foreach (var U in Units) { 
-            MakeValidMove(U);   
+        for (int i = 0;i<Units.Count-1;i++) { 
+            MakeValidMove(Units[i]);   
         }
         foreach (var F in grid.Forts) { 
             F.SpawnUnit();    
@@ -37,6 +37,15 @@ public class AIbrain : MonoBehaviour {
                         }
         }
         return false;
+    }
+
+    bool isLocDangerous(HexCell c) {
+        
+        for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
+            if(c.GetNeighbor(D).coordinates.Z<=0 || c.GetNeighbor(D).coordinates.Z>=grid.cellCountZ-1)
+                return true;
+        }
+        return false;    
     }
 
     void MakeValidMove(HexUnit U) { 
@@ -59,8 +68,22 @@ public class AIbrain : MonoBehaviour {
         if(!canMove)
             return;
 
-        while(!valid) {
+        int i = 0;
 
+        while(!valid && (i++)<10) {
+            if(isLocDangerous(U.Location))
+                for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
+                    if(U.Location.GetNeighbor(D).coordinates.Z<=0 || U.Location.GetNeighbor(D).coordinates.Z>=grid.cellCountZ-1) {
+                        grid.FindPath(U.Location,U.Location.GetNeighbor(D),U);
+                        if(grid.HasPath) { 
+                            U.Travel(grid.GetPath());
+                            grid.ClearPath();
+                            TentaAtacar(U);
+                            return;
+                        }
+                        
+                    }
+                }
             //sorteia uma direcao e verifica se ela nao eh o retorno de um movimento ja realizado.
             HexDirection d = (HexDirection)Random.Range(0,6);
             if(dir[1]!=-1 && (HexDirection)dir[1] == d)

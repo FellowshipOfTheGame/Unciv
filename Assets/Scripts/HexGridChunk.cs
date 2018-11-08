@@ -17,7 +17,6 @@ public class HexGridChunk : MonoBehaviour {
 
 	void Awake () {
 		gridCanvas = GetComponentInChildren<Canvas>();
-
 		cells = new HexCell[HexMetrics.chunkSizeX * HexMetrics.chunkSizeZ];
 	}
 
