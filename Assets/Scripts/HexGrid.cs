@@ -55,7 +55,7 @@ public class HexGrid : MonoBehaviour {
 	int currentCenterColumnIndex = -1;
 
 	List<HexUnit> units = new List<HexUnit>();
-	List<HexCity> cities = new List<HexCity> ();
+	public List<HexCity> cities = new List<HexCity> ();
     public List<HexFort> Forts = new List<HexFort> ();
     public HexGameUI HGU;
 

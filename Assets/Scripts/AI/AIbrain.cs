@@ -12,13 +12,13 @@ public class AIbrain : MonoBehaviour {
     public Canvas Win;
 
     public void Activate() {
-        if(Units.Count<=0) { 
+        if(Units.Count<=0 && grid.Forts.Count<=0) { 
             //Game Over Player Won!
             Win.gameObject.SetActive(true);
             return;
         }
 
-        for (int i = 0;i<Units.Count-1;i++) { 
+        for (int i = 0;i<Units.Count;i++) { 
             MakeValidMove(Units[i]);   
         }
         foreach (var F in grid.Forts) { 
@@ -29,12 +29,18 @@ public class AIbrain : MonoBehaviour {
 
     bool TentaAtacar(HexUnit U){ 
         for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
-                if (U.Location.GetNeighbor(D))
+                if (U.Location.GetNeighbor(D)) {
+                    if(U.Location.GetNeighbor(D).city) {
+                        U.Seize(U.Location.GetNeighbor(D).city);
+                        return true;
+                    }
                     if (U.Location.GetNeighbor(D).Unit)
                         if(U.Location.GetNeighbor(D).Unit.Faccao!="Barbaros" && U.Location.GetNeighbor(D).Unit.Faccao!="Minor") { //se nao for menor ou barbaro
 				            U.Attack(U.Location.GetNeighbor(D).Unit);
                             return true;
                         }
+                }
+                
         }
         return false;
     }
@@ -42,7 +48,7 @@ public class AIbrain : MonoBehaviour {
     bool isLocDangerous(HexCell c) {
         
         for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
-            if(c.GetNeighbor(D).coordinates.Z<=0 || c.GetNeighbor(D).coordinates.Z>=grid.cellCountZ-1)
+            if(c.GetNeighbor(D).coordinates.Z<=1 || c.GetNeighbor(D).coordinates.Z>=grid.cellCountZ-2)
                 return true;
         }
         return false;    

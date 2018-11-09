@@ -111,6 +111,16 @@ public class HexUnit : MonoBehaviour {
             Grid.RemoveUnit(this);
 	}
 
+    public virtual void Seize(HexCity HC) { 
+        Grid.RemoveCity(HC);
+        canAttack=false;
+        CanMove=false;
+    }
+
+    public virtual void Seize(HexFort HF) { 
+        Grid.RemoveFort(HF);
+    }
+
 	public virtual int VisionRange {
 		get {
 			return 3;

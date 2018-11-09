@@ -7,17 +7,21 @@ public class Player : MonoBehaviour {
 
     private string Resources;
     public string Faccao;
+    public HexGrid grid;
+    public Canvas Lose;
 
     public Text Res;
 
     private void Awake() {
         //Res = individualCityMenu.transform.GetChild(1).GetComponent<Text>();
-        Resources = "30";
+        Resources = "15";
     }
 
     private void Update() {
         Res.text = "Resources: " + Resources;
 
+        if(grid.cities.Count<=0)
+            Lose.gameObject.SetActive(true);
     }
 
     public void SetResources(string Bonus){ 
