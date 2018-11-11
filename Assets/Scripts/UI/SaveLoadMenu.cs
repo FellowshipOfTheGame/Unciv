@@ -7,6 +7,8 @@ public class SaveLoadMenu : MonoBehaviour {
 
 	const int mapFileVersion = 7;
 
+	public bool customMap;
+
 	public Text menuLabel, actionButtonLabel;
 
 	public InputField nameInput;
@@ -73,8 +75,11 @@ public class SaveLoadMenu : MonoBehaviour {
 		for (int i = 0; i < listContent.childCount; i++) {
 			Destroy(listContent.GetChild(i).gameObject);
 		}
-		string[] paths =
-			Directory.GetFiles(Application.persistentDataPath, "*.map");
+		string[] paths;
+		if (!customMap)
+			paths = Directory.GetFiles(Path.Combine(Application.persistentDataPath, "Maps"), "*.map");
+		else
+			paths = Directory.GetFiles(Path.Combine(Application.persistentDataPath, "PlayerMaps"), "*.map");
 		Array.Sort(paths);
 		for (int i = 0; i < paths.Length; i++) {
 			SaveLoadItem item = Instantiate(itemPrefab);
@@ -86,17 +91,20 @@ public class SaveLoadMenu : MonoBehaviour {
 
 	string GetSelectedPath () {
 		string mapName = nameInput.text;
-		if (mapName.Length == 0) {
+		if (mapName.Length == 0)
 			return null;
-		}
-		return Path.Combine(Application.persistentDataPath, mapName + ".map");
+		
+		string path;
+		if (!customMap)
+			path = Path.Combine(Application.persistentDataPath, Path.Combine("Maps", mapName + ".map"));
+		else
+			path = Path.Combine(Application.persistentDataPath, Path.Combine("PlayerMaps", mapName + ".map"));
+		
+		return path;
 	}
 
-	void Save (string path) {
-		using (
-			BinaryWriter writer =
-			new BinaryWriter(File.Open(path, FileMode.Create))
-		) {
+	public void Save (string path) {
+		using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create))) {
 			writer.Write(mapFileVersion);
 			hexGrid.Save(writer);
 		}

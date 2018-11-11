@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9023,6 +9023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62a204dca0184544b5b295eeb4695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: -2147483648
   Faccao: Visokea
   Res: {fileID: 1262746828}
 --- !u!4 &1229637327
@@ -13102,7 +13103,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2012569023}
-        m_MethodName: NewGame
+        m_MethodName: NextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14062,6 +14063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SLM: {fileID: 1642458567}
+  player: {fileID: 1229637326}
 --- !u!1 &1867603862
 GameObject:
   m_ObjectHideFlags: 0
@@ -15163,6 +15165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc9c5c436980f542a89733481afdec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SLM: {fileID: 1642458567}
+  player: {fileID: 1229637326}
 --- !u!114 &2012569024
 MonoBehaviour:
   m_ObjectHideFlags: 0
