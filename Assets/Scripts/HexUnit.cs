@@ -151,6 +151,8 @@ public class HexUnit : MonoBehaviour {
 		StopAllCoroutines();
 		StartCoroutine(TravelPath());
 		CanMove=false;
+        if(canAttack)
+            location.EnableHighlight(Color.magenta);
 	}
 
 	IEnumerator TravelPath () {
@@ -313,6 +315,12 @@ public class HexUnit : MonoBehaviour {
 			}
 		}
 	}
+
+    public void Passe() { 
+        canAttack=true;
+        CanMove=true;
+        location.EnableHighlight(Color.black);
+    }
 
     //	void OnDrawGizmos () {
     //		if (pathToTravel == null || pathToTravel.Count == 0) {

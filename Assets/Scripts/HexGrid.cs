@@ -82,8 +82,7 @@ public class HexGrid : MonoBehaviour {
 
 	public void Pass(){ 
 		foreach (HexUnit hu in units) {
-			hu.CanMove=true;
-            hu.canAttack=true;
+			hu.Passe();
 		}
         foreach (var c in cities) { 
             P.SetResources(c.ResPT);    
