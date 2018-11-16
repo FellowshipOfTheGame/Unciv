@@ -9399,8 +9399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faccao: Visokea
-  grid: {fileID: 0}
-  Lose: {fileID: 0}
+  grid: {fileID: 1571186511}
+  Lose: {fileID: 1170530681}
   Res: {fileID: 1262746828}
 --- !u!4 &1229637327
 Transform:
