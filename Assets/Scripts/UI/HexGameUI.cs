@@ -36,7 +36,7 @@ public class HexGameUI : MonoBehaviour {
 		if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (selectedUnit) {
 				if (Input.GetMouseButtonDown (1)) {
-                    if(selectedUnit.canAttack){ 
+                    if(selectedUnit.canAttack) { 
                         Debug.Log("Unidade pode atacar");
                         HexCell currentCell = GetCellUnderCursor();
                         if(currentCell.Unit) {
@@ -47,6 +47,11 @@ public class HexGameUI : MonoBehaviour {
                                 for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
                                     selectedUnit.Location.GetNeighbor (d).DisableHighlight ();
                             }
+                        }
+                        else if(currentCell.Fort) { 
+                            selectedUnit.Seize(currentCell.Fort);
+                            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+                                    selectedUnit.Location.GetNeighbor (d).DisableHighlight ();
                         }
                     }
                     if(selectedUnit.CanMove) {
@@ -85,10 +90,13 @@ public class HexGameUI : MonoBehaviour {
     public void HighLight() { 
         for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
                         if(selectedUnit)
-			                if (selectedUnit.Location.GetNeighbor(d))
+			                if (selectedUnit.Location.GetNeighbor(d)) {
+                                if(selectedUnit.Location.GetNeighbor(d).Fort)
+                                    selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
                                 if (selectedUnit.Location.GetNeighbor(d).Unit)
                                     if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao)
 				                        selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
+                            }
         }    
     }
 
@@ -107,7 +115,7 @@ public class HexGameUI : MonoBehaviour {
 			selectedCity = currentCell.city;
 		}
         if(selectedCity)
-            Debug.Log("Cidade Selecionada");
+            selectedUnit=null;
 	}
 
 	void DoUnitSelection () {

@@ -454,12 +454,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HB: {fileID: 114393698758803106}
   CanMove: 1
-  ATK: 15
+  ATK: 20
   SPD: 10
-  HitP: 100
+  HitP: 50
   DEF: 10
   RNG: 1
-  cost: 10
+  cost: 5
   canAttack: 0
   Faccao: 
 --- !u!114 &114393698758803106

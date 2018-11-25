@@ -107,6 +107,7 @@ public class HexMapEditor : MonoBehaviour {
 	public void SetEditMode (bool toggle) {
 		enabled = toggle;
         isEditMode=enabled;
+
 	}
 
 	public void ShowGrid (bool visible) {

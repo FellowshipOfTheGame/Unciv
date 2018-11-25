@@ -111,6 +111,16 @@ public class HexUnit : MonoBehaviour {
             Grid.RemoveUnit(this);
 	}
 
+    public virtual void Seize(HexCity HC) { 
+        Grid.RemoveCity(HC);
+        canAttack=false;
+        CanMove=false;
+    }
+
+    public virtual void Seize(HexFort HF) { 
+        Grid.RemoveFort(HF);
+    }
+
 	public virtual int VisionRange {
 		get {
 			return 3;
@@ -141,6 +151,8 @@ public class HexUnit : MonoBehaviour {
 		StopAllCoroutines();
 		StartCoroutine(TravelPath());
 		CanMove=false;
+        if(canAttack)
+            location.EnableHighlight(Color.magenta);
 	}
 
 	IEnumerator TravelPath () {
@@ -303,6 +315,12 @@ public class HexUnit : MonoBehaviour {
 			}
 		}
 	}
+
+    public void Passe() { 
+        canAttack=true;
+        CanMove=true;
+        location.EnableHighlight(Color.black);
+    }
 
     //	void OnDrawGizmos () {
     //		if (pathToTravel == null || pathToTravel.Count == 0) {

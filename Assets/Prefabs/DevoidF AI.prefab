@@ -929,7 +929,7 @@ MonoBehaviour:
   CanMove: 1
   ATK: 30
   SPD: 20
-  HitP: 40
+  HitP: 30
   DEF: 25
   RNG: 1
   cost: 

@@ -55,7 +55,7 @@ public class HexGrid : MonoBehaviour {
 	int currentCenterColumnIndex = -1;
 
 	List<HexUnit> units = new List<HexUnit>();
-	List<HexCity> cities = new List<HexCity> ();
+	public List<HexCity> cities = new List<HexCity> ();
     public List<HexFort> Forts = new List<HexFort> ();
     public HexGameUI HGU;
 
@@ -82,8 +82,7 @@ public class HexGrid : MonoBehaviour {
 
 	public void Pass(){ 
 		foreach (HexUnit hu in units) {
-			hu.CanMove=true;
-            hu.canAttack=true;
+			hu.Passe();
 		}
         foreach (var c in cities) { 
             P.SetResources(c.ResPT);    

@@ -19,6 +19,10 @@ public class HexUnitAI : HexUnit {
     }
 
     public override bool IsValidDestination (HexCell cell) {
+
+        if(cell.coordinates.Z<=0||cell.coordinates.Z>=Grid.cellCountZ-1)
+            return false; //impede faccao menor de fugir do mapa
+
         if(Faccao=="Minor") {
             if (isF)
                 return (cell.WaterLevel-cell.Elevation < 3) && !cell.Unit && !cell.city && !cell.Fort;

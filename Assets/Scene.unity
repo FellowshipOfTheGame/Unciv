@@ -6935,6 +6935,48 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
+--- !u!1001 &966946860
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4480886875893626, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 9.032787
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480886875893626, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.53339005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480886875893626, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -5.2624254
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480886875893626, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480886875893626, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480886875893626, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480886875893626, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480886875893626, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0c6624003a0e0b4cb0d2e5279acd786, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &983414033
 GameObject:
   m_ObjectHideFlags: 0
@@ -9024,6 +9066,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faccao: Visokea
+  grid: {fileID: 0}
+  Lose: {fileID: 0}
   Res: {fileID: 1262746828}
 --- !u!4 &1229637327
 Transform:
@@ -11735,6 +11779,7 @@ MonoBehaviour:
   cityMenuCanvas: {fileID: 987189120}
   noiseSource: {fileID: 2800000, guid: 38701cdeb1fb9427cbb585f917aa59cb, type: 3}
   seed: 1234
+  cities: []
   Forts: []
   HGU: {fileID: 333297601}
 --- !u!4 &1571186512
@@ -14851,7 +14896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1957024956
 Transform:
   m_ObjectHideFlags: 0

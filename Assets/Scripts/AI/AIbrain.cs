@@ -12,14 +12,14 @@ public class AIbrain : MonoBehaviour {
     public Canvas Win;
 
     public void Activate() {
-        if(Units.Count<=0) { 
+        if(Units.Count<=0 && grid.Forts.Count<=0) { 
             //Game Over Player Won!
             Win.gameObject.SetActive(true);
             return;
         }
 
-        foreach (var U in Units) { 
-            MakeValidMove(U);   
+        for (int i = 0;i<Units.Count;i++) { 
+            MakeValidMove(Units[i]);   
         }
         foreach (var F in grid.Forts) { 
             F.SpawnUnit();    
@@ -29,14 +29,29 @@ public class AIbrain : MonoBehaviour {
 
     bool TentaAtacar(HexUnit U){ 
         for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
-                if (U.Location.GetNeighbor(D))
+                if (U.Location.GetNeighbor(D)) {
+                    if(U.Location.GetNeighbor(D).city) {
+                        U.Seize(U.Location.GetNeighbor(D).city);
+                        return true;
+                    }
                     if (U.Location.GetNeighbor(D).Unit)
                         if(U.Location.GetNeighbor(D).Unit.Faccao!="Barbaros" && U.Location.GetNeighbor(D).Unit.Faccao!="Minor") { //se nao for menor ou barbaro
 				            U.Attack(U.Location.GetNeighbor(D).Unit);
                             return true;
                         }
+                }
+                
         }
         return false;
+    }
+
+    bool isLocDangerous(HexCell c) {
+        
+        for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
+            if(c.GetNeighbor(D).coordinates.Z<=1 || c.GetNeighbor(D).coordinates.Z>=grid.cellCountZ-2)
+                return true;
+        }
+        return false;    
     }
 
     void MakeValidMove(HexUnit U) { 
@@ -59,8 +74,22 @@ public class AIbrain : MonoBehaviour {
         if(!canMove)
             return;
 
-        while(!valid) {
+        int i = 0;
 
+        while(!valid && (i++)<10) {
+            if(isLocDangerous(U.Location))
+                for (HexDirection D = HexDirection.NE; D <= HexDirection.NW; D++) {
+                    if(U.Location.GetNeighbor(D).coordinates.Z<=0 || U.Location.GetNeighbor(D).coordinates.Z>=grid.cellCountZ-1) {
+                        grid.FindPath(U.Location,U.Location.GetNeighbor(D),U);
+                        if(grid.HasPath) { 
+                            U.Travel(grid.GetPath());
+                            grid.ClearPath();
+                            TentaAtacar(U);
+                            return;
+                        }
+                        
+                    }
+                }
             //sorteia uma direcao e verifica se ela nao eh o retorno de um movimento ja realizado.
             HexDirection d = (HexDirection)Random.Range(0,6);
             if(dir[1]!=-1 && (HexDirection)dir[1] == d)
