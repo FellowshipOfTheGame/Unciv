@@ -2213,6 +2213,47 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 218848522}
   m_CullTransparentMesh: 0
+--- !u!1 &232496166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 232496168}
+  - component: {fileID: 232496167}
+  m_Layer: 0
+  m_Name: Campaign Control
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &232496167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 232496166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f798d9daf09143d4e90a4087d4d5b29a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SLM: {fileID: 1642458567}
+--- !u!4 &232496168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 232496166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 643, y: 297.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261391484
 GameObject:
   m_ObjectHideFlags: 0
@@ -8760,6 +8801,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc9c5c436980f542a89733481afdec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SLM: {fileID: 0}
+  campaign: {fileID: 0}
 --- !u!114 &1170530679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9403,10 +9446,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62a204dca0184544b5b295eeb4695d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: -2147483648
   Faccao: Visokea
   grid: {fileID: 1571186511}
   Lose: {fileID: 1170530681}
+  SLM: {fileID: 0}
   Res: {fileID: 1262746828}
 --- !u!4 &1229637327
 Transform:
@@ -9419,7 +9462,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1230601816
 GameObject:
@@ -12586,7 +12629,7 @@ GameObject:
   - component: {fileID: 1642458567}
   m_Layer: 5
   m_Name: Save Load Menu
-  m_TagString: Untagged
+  m_TagString: SLM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12679,6 +12722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8593b684355b34daca62f2a33ff95736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customMap: 0
   menuLabel: {fileID: 166284117}
   actionButtonLabel: {fileID: 595257383}
   nameInput: {fileID: 89474001}
@@ -14755,8 +14799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfbf7ba9b203fc4db3c71673679ece2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SLM: {fileID: 1642458567}
-  player: {fileID: 1229637326}
 --- !u!1 &1867603862
 GameObject:
   m_ObjectHideFlags: 0
@@ -15826,7 +15868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!223 &2012569022
 Canvas:
   m_ObjectHideFlags: 0
@@ -15859,7 +15901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SLM: {fileID: 1642458567}
-  player: {fileID: 1229637326}
+  campaign: {fileID: 232496167}
 --- !u!114 &2012569024
 MonoBehaviour:
   m_ObjectHideFlags: 0

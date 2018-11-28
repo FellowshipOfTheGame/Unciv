@@ -77,7 +77,7 @@ public class SaveLoadMenu : MonoBehaviour {
 		}
 		string[] paths;
 		if (!customMap)
-			paths = Directory.GetFiles(Path.Combine(Application.persistentDataPath, "Maps"), "*.map");
+			paths = Directory.GetFiles(Path.Combine(Application.dataPath, "Maps"), "*.map");
 		else
 			paths = Directory.GetFiles(Path.Combine(Application.persistentDataPath, "PlayerMaps"), "*.map");
 		Array.Sort(paths);
@@ -96,7 +96,7 @@ public class SaveLoadMenu : MonoBehaviour {
 		
 		string path;
 		if (!customMap)
-			path = Path.Combine(Application.persistentDataPath, Path.Combine("Maps", mapName + ".map"));
+			path = Path.Combine(Application.dataPath, Path.Combine("Maps", mapName + ".map"));
 		else
 			path = Path.Combine(Application.persistentDataPath, Path.Combine("PlayerMaps", mapName + ".map"));
 		

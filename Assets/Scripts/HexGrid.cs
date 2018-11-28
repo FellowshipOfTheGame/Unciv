@@ -371,7 +371,6 @@ public class HexGrid : MonoBehaviour {
 		for (int i = 0; i < Forts.Count; i++) {
 			Forts[i].Save(writer);
 		}
-		P.Save(writer);
 	}
 
 	public void Load (BinaryReader reader, int header) {
@@ -423,8 +422,6 @@ public class HexGrid : MonoBehaviour {
 			}
 		}
 		cellShaderData.ImmediateMode = originalImmediateMode;
-		if (reader.BaseStream.Position < reader.BaseStream.Length)
-			P.Load(reader);
 	}
 
 	public List<HexCell> GetPath () {

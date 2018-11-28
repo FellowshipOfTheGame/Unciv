@@ -6,12 +6,11 @@ using System.IO;
 
 public class Player : MonoBehaviour {
 
-
-    public int level = 1;
     private string Resources;
     public string Faccao;
     public HexGrid grid;
     public Canvas Lose;
+    public SaveLoadMenu SLM;
 
     public Text Res;
 
@@ -53,17 +52,5 @@ public class Player : MonoBehaviour {
             result = 10 * result + (letter - 48);
         }
         return result;
-    }
-
-    public void Save (BinaryWriter writer) {
-        writer.Write(Faccao);
-        writer.Write(Resources);
-        writer.Write(level);
-    }
-
-    public void Load (BinaryReader reader) {
-        Faccao = reader.ReadString();
-        Resources = reader.ReadString();
-        level = reader.ReadInt32();
     }
 }
