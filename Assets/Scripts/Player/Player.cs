@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class Player : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour {
     public string Faccao;
     public HexGrid grid;
     public Canvas Lose;
+    public SaveLoadMenu SLM;
 
     public Text Res;
 

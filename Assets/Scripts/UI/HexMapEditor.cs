@@ -126,13 +126,11 @@ public class HexMapEditor : MonoBehaviour {
 	}
 
 	void Update () {
-        
         if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (Input.GetMouseButton(0)) {
 				HandleInput();
 				return;
 			}
-			//now you spawn a city with U, not a unit anymore
 			if (Input.GetKeyDown (KeyCode.U)) {
 				if (Input.GetKey (KeyCode.LeftShift)) {
 					DestroyUnit ();
