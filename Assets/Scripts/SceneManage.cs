@@ -12,6 +12,8 @@ public class SceneManage : MonoBehaviour {
 
 
     public void Exit() {
+        campaign.NextLevel();
+        CampaignControl.Save();
         SceneManager.LoadScene(0);
     }
 
@@ -23,6 +25,9 @@ public class SceneManage : MonoBehaviour {
             CampaignControl.Save();
         }
         else
+        {
             this.gameObject.SetActive(false);
+            CampaignControl.Save();
+        }
     }
 }

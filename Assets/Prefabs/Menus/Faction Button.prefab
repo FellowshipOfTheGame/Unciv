@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fff2c7ea106a644a2f4726b45a6741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGame: 0
 --- !u!222 &1113050315733235573
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -130,7 +131,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6253880826238770380}
-        m_MethodName: NewGame
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

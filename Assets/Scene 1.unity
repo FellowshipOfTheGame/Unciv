@@ -9973,7 +9973,6 @@ MonoBehaviour:
   Faccao: Visokea
   grid: {fileID: 1571186511}
   Lose: {fileID: 1170530681}
-  SLM: {fileID: 0}
   Res: {fileID: 1262746828}
 --- !u!4 &1229637327
 Transform:
@@ -13430,8 +13429,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 114778907200386024, guid: 3ba1efbe9386b435da480e11c9fcb2df,
     type: 3}
   hexGrid: {fileID: 1571186511}
-  noMapWarning: {fileID: 5720195961924343459, guid: ef166e3ab0a84e6469882ec1b4e51702,
-    type: 3}
 --- !u!1 &1646147695
 GameObject:
   m_ObjectHideFlags: 0
