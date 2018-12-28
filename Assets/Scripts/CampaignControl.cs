@@ -86,4 +86,35 @@ public class CampaignControl : MonoBehaviour {
         }
         return;
     }
+
+    public static int CheckCampaignMaps(){
+        if (!Directory.Exists(Path.Combine(Application.dataPath, "Maps")))
+        {
+            Debug.LogWarning("Maps não existe");
+            return -1;
+        }
+        else
+        {
+            string[] directoryPaths = Directory.GetDirectories(Path.Combine(Application.dataPath, "Maps"));
+            if (directoryPaths.Length != faccoes.Count)
+            {
+                Debug.LogWarning("Número de pastas diferente do número de faccoes");
+                return -2;
+            }
+            else
+            {
+                for (int i = 0; i < directoryPaths.Length; i++)
+                {
+                    string[] filePaths = Directory.GetFiles(Path.Combine(Application.dataPath, Path.Combine("Maps", directoryPaths[i])), "*.map");
+                    if (filePaths.Length <= 0)
+                    {
+                        Debug.LogWarning("Alguma pasta de mapa está vazia");
+                        return -3;
+                    }
+                }
+            }
+        }
+
+        return 1;
+    }
 }

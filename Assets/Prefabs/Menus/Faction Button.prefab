@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3061833086545080550}
+  - component: {fileID: 6253880826238770380}
   - component: {fileID: 1113050315733235573}
   - component: {fileID: 3050221523372969084}
   - component: {fileID: 1099045214505175182}
@@ -39,6 +40,18 @@ RectTransform:
   m_AnchoredPosition: {x: 455, y: 223}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6253880826238770380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2399431534953743872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fff2c7ea106a644a2f4726b45a6741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &1113050315733235573
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -115,7 +128,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3050221523372969084}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6253880826238770380}
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &4356204162355864837
