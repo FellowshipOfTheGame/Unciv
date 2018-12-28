@@ -36,9 +36,7 @@ public class CampaignControl : MonoBehaviour {
     public bool NextLevel (){
         faccoes[actualFactionIndex].completedLevels[actualLevel] = true;
         for (int i = 0; i < 10; i++)
-        {
             Debug.Log("Fase "+ i + " " + faccoes[actualFactionIndex].completedLevels[i]);
-        }
         actualLevel++;
         string path = Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map")));
         if (File.Exists(path))

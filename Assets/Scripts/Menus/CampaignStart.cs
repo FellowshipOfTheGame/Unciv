@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -27,7 +25,16 @@ public class CampaignStart : MonoBehaviour
         }
         else
         {
-            //simply starts the game
+            //simply starts the game, if there is one to load
+            for (int i = 0; i < CampaignControl.faccoes.Count; i++)
+                //finds the facction to be started again
+                if (CampaignControl.faccoes[i].factionName == this.GetComponentInChildren<Text>().text)
+                {
+                    if (CampaignControl.faccoes[i].completedLevels[0] == false)
+                        Debug.LogError("No save found");
+                    //displays error to player
+                    return;
+                }
             CampaignControl.actualFaction = this.GetComponentInChildren<Text>().text;
             SceneManager.LoadScene(1);
         }
