@@ -9,8 +9,8 @@ public class CampaignControl : MonoBehaviour {
     
     public SaveLoadMenu SLM;
     public static string actualFaction;
-    private static int actualLevel;
-    private static int actualFactionIndex;
+    public static int actualLevel;
+    public static int actualFactionIndex;
     public static List<Faccao> faccoes = new List<Faccao>();
 
     // Use this for initialization
@@ -19,25 +19,14 @@ public class CampaignControl : MonoBehaviour {
         //Create the directory to player maps
         if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "PlayerMaps")))
             Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "PlayerMaps"));
-        //Searches the level in which the player shall continue
-        if ((actualLevel = FindActualLevel()) == -1){
-            Debug.LogWarning("No level for this faccion found");
-        }
         //loads the path to the actualFaction and actuallevel
-        string path = Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map")));
-        SLM.Load(path);
-    }
-
-    public void Update()
-    {
-        Debug.LogWarning("Actual level = " + actualLevel);
+        SLM.Load(Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map"))));
     }
 
     public bool NextLevel (){
         faccoes[actualFactionIndex].completedLevels[actualLevel] = true;
-        for (int i = 0; i < 10; i++)
-            Debug.Log("Fase "+ i + " " + faccoes[actualFactionIndex].completedLevels[i]);
         actualLevel++;
+        Save();
         string path = Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map")));
         if (File.Exists(path))
         {
@@ -48,24 +37,18 @@ public class CampaignControl : MonoBehaviour {
             return false;
     }
 
-    int FindActualLevel (){
-        for (int i = 0; i < faccoes.Count; i++)
-            if (faccoes[i].factionName == actualFaction)
-            {
-                actualFactionIndex = i;
-                for (int j = 0; j < 10; j++)
-                    if (faccoes[i].completedLevels[j] == false)
-                        return j;
-                break;
-            }
-        return -1;
+    public static int FindLastLevel (){
+        for (int j = 0; j < 10; j++)
+            if (faccoes[actualFactionIndex].completedLevels[j] == false)
+                return j;
+        return 9;
     }
 
     //Saves the list of completed levels to a file
     public static void Save (){
         string savePath = Path.Combine(Application.persistentDataPath, "Campaign.save");
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(savePath, FileMode.Create); //File.Create(savePath);
+        FileStream file = File.Create(savePath);
         bf.Serialize(file, faccoes);
         file.Close();
     }
@@ -75,64 +58,28 @@ public class CampaignControl : MonoBehaviour {
         //the path to the file
         string savePath = Path.Combine(Application.persistentDataPath, "Campaign.save");
         //if the file exists
-        if (faccoes.Count.Equals(0))
-        {
-            if (File.Exists(savePath))
-            {
-                Debug.Log("campaign.save LOADED");
-                BinaryFormatter bf = new BinaryFormatter();
-                FileStream file = File.Open(savePath, FileMode.Open);
-                //opens and loads it
-                faccoes = bf.Deserialize(file) as List<Faccao>;
-                file.Close();
-            }
-            //if it doesnt
-            else
-            {
-                //creates all factions and stores it with no completed level
-                Faccao aux = new Faccao("Visokea");
-                faccoes.Add(aux);
-                aux = new Faccao("GenericFaccion");
-                faccoes.Add(aux);
-                //aqui deverá ser adicionado à lista todas as faccoes;
-                //saves it
-                Save();
-            }
+        if (File.Exists(savePath)){
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(savePath, FileMode.Open);
+            //opens and loads it
+            faccoes = bf.Deserialize(file) as List<Faccao>;
+            file.Close();
+        }
+        //if it doesnt
+        else{
+            //creates all factions and stores it with no completed level
+            Faccao aux = new Faccao("Visokea");
+            for (int i = 0; i < 10; i++)
+                aux.completedLevels[i] = false;
+            faccoes.Add(aux);
+            aux = new Faccao("Devoid");
+            for (int i = 0; i < 10; i++)
+                aux.completedLevels[i] = false;
+            faccoes.Add(aux);
+            //aqui deverá ser adicionado à lista todas as faccoes;
+            //saves it
+            Save();
         }
         return;
-    }
-
-    public static int CheckCampaignMaps(){
-        //if there isnt the maps folder, return -1
-        if (!Directory.Exists(Path.Combine(Application.dataPath, "Maps")))
-        {
-            Debug.LogWarning("Maps não existe");
-            return -1;
-        }
-        else
-        {
-            //if there isnt a expected faction, return -2
-            string[] directoryPaths = Directory.GetDirectories(Path.Combine(Application.dataPath, "Maps"));
-            if (directoryPaths.Length < faccoes.Count)
-            {
-                Debug.LogWarning("Número de pastas diferente do número de faccoes");
-                return -2;
-            }
-            else
-            {
-                //if a faction has no maps, return -3
-                for (int i = 0; i < directoryPaths.Length; i++)
-                {
-                    string[] filePaths = Directory.GetFiles(Path.Combine(Application.dataPath, Path.Combine("Maps", directoryPaths[i])), "*.map");
-                    if (filePaths.Length <= 0)
-                    {
-                        Debug.LogWarning("Alguma pasta de mapa está vazia");
-                        return -3;
-                    }
-                }
-            }
-        }
-        //if there are at least 1 map in all registered factions, return 1
-        return 1;
     }
 }

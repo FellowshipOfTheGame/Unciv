@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
     public string Faccao;
     public HexGrid grid;
     public Canvas Lose;
+    public SaveLoadMenu SLM;
 
     public Text Res;
 

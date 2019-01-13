@@ -12,7 +12,7 @@ public class SceneManage : MonoBehaviour {
 
 
     public void Exit() {
-        campaign.NextLevel();
+        CampaignControl.faccoes[CampaignControl.actualFactionIndex].completedLevels[CampaignControl.actualLevel] = true;
         CampaignControl.Save();
         SceneManager.LoadScene(0);
     }
@@ -22,12 +22,8 @@ public class SceneManage : MonoBehaviour {
         {
             this.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = "Congratulations!\n You finished all levels";
             this.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-            CampaignControl.Save();
         }
         else
-        {
             this.gameObject.SetActive(false);
-            CampaignControl.Save();
-        }
     }
 }

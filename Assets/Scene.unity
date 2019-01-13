@@ -9066,9 +9066,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Faccao: Visokea
-  grid: {fileID: 1571186511}
-  Lose: {fileID: 1846776627}
-  SLM: {fileID: 1642458567}
   Res: {fileID: 1262746828}
 --- !u!4 &1229637327
 Transform:
@@ -11780,7 +11777,6 @@ MonoBehaviour:
   cityMenuCanvas: {fileID: 987189120}
   noiseSource: {fileID: 2800000, guid: 38701cdeb1fb9427cbb585f917aa59cb, type: 3}
   seed: 1234
-  cities: []
   Forts: []
   HGU: {fileID: 333297601}
 --- !u!4 &1571186512
