@@ -8,9 +8,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class CampaignControl : MonoBehaviour {
     
     public SaveLoadMenu SLM;
-    public static string actualFaccion;
-    private static int actualLevel;
-    private static int actualFaccionIndex;
+    public static string actualFaction;
+    public static int actualLevel;
+    public static int actualFactionIndex;
     public static List<Faccao> faccoes = new List<Faccao>();
 
     // Use this for initialization
@@ -19,21 +19,15 @@ public class CampaignControl : MonoBehaviour {
         //Create the directory to player maps
         if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "PlayerMaps")))
             Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "PlayerMaps"));
-        //Searches the level in which the player shall continue
-        if ((actualLevel = FindActualLevel()) == -1){
-            Debug.LogWarning("No level for this faccion found");
-        }
-        actualFaccionIndex = actualLevel;
-        Debug.Log(actualFaccion + " " + actualLevel.ToString());
-        //loads the path to the actualfaccion and actuallevel
-        string path = Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaccion, actualLevel.ToString() + ".map")));
-        SLM.Load(path);
+        //loads the path to the actualFaction and actuallevel
+        SLM.Load(Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map"))));
     }
 
     public bool NextLevel (){
-        faccoes[actualFaccionIndex].completedLevels[actualLevel] = true;
+        faccoes[actualFactionIndex].completedLevels[actualLevel] = true;
         actualLevel++;
-        string path = Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaccion, actualLevel.ToString() + ".map")));
+        Save();
+        string path = Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map")));
         if (File.Exists(path))
         {
             SLM.Load(path);
@@ -43,13 +37,11 @@ public class CampaignControl : MonoBehaviour {
             return false;
     }
 
-    int FindActualLevel (){
-        for (int i = 0; i < faccoes.Count; i++)
-            if (faccoes[i].factionName == actualFaccion)
-                for (int j = 0; j < 10; j++)
-                    if (faccoes[i].completedLevels[j] == false)
-                        return j + 1;
-        return -1;
+    public static int FindLastLevel (){
+        for (int j = 0; j < 10; j++)
+            if (faccoes[actualFactionIndex].completedLevels[j] == false)
+                return j;
+        return 9;
     }
 
     //Saves the list of completed levels to a file
@@ -77,8 +69,12 @@ public class CampaignControl : MonoBehaviour {
         else{
             //creates all factions and stores it with no completed level
             Faccao aux = new Faccao("Visokea");
+            for (int i = 0; i < 10; i++)
+                aux.completedLevels[i] = false;
             faccoes.Add(aux);
-            aux = new Faccao("GenericFaccion");
+            aux = new Faccao("Devoid");
+            for (int i = 0; i < 10; i++)
+                aux.completedLevels[i] = false;
             faccoes.Add(aux);
             //aqui deverá ser adicionado à lista todas as faccoes;
             //saves it

@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour {
 
-    private void Awake(){
-        CampaignControl.Load();
-    }
-
     public void QuitGame()
     {
         Debug.Log("quit");

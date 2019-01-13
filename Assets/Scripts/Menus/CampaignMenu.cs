@@ -2,28 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CampaignMenu : MonoBehaviour {
 
-    public GameObject faccionButton;
-    private RectTransform position;
+    public GameObject levelButtonsParent;
+    Button[] buttons;
 
-    private void Start(){
-        //idea: this start function should instantiate all facctions buttons based on Faccao.faccoes
+    public void Start()
+    {
+        CampaignControl.Load();
+        buttons = levelButtonsParent.GetComponentsInChildren<Button>();
     }
 
-    public void NewGameVisokea () {
-        CampaignControl.actualFaccion = "Visokea";
+    public void SetFaction(string faction)
+    {
+        CampaignControl.actualFaction = faction;
+    }
+
+    public void SetLevel (int level)
+    {
+        CampaignControl.actualLevel = level;
+    }
+
+    public void NewGame(int level)
+    {
+        SetLevel(level);
         SceneManager.LoadScene(1);
     }
 
-    public void NewGameGenericFaccion(){
-        CampaignControl.actualFaccion = "GenericFaccion";
+    public void ContinueGame ()
+    {
+        SetLevel(CampaignControl.FindLastLevel());
         SceneManager.LoadScene(1);
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    public void LevelSelectionControl()
+    {
+        for (int i = 0; i < CampaignControl.faccoes.Count; i++)
+            if (CampaignControl.actualFaction == CampaignControl.faccoes[i].factionName){
+                CampaignControl.actualFactionIndex = i;
+                break;
+            }
+        bool hasFoundNextLevel = false;
+        for (int j = 0; j < 10; j++){
+            if (CampaignControl.faccoes[CampaignControl.actualFactionIndex].completedLevels[j] == true)
+                buttons[j].gameObject.SetActive(true);
+            else if (!hasFoundNextLevel){
+                hasFoundNextLevel = !hasFoundNextLevel;
+                buttons[j].gameObject.SetActive(true);
+            }
+            else
+                buttons[j].gameObject.SetActive(false);
+        }
+    }
 }
