@@ -20,7 +20,12 @@ public class HexUnit : MonoBehaviour {
 
 	public HexGrid Grid { get; set; }
 
-	public HexCell Location {
+    private void Awake()
+    {
+        Maxhp = HitP;
+    }
+
+    public HexCell Location {
 		get {
 			return location;
 		}
@@ -65,15 +70,19 @@ public class HexUnit : MonoBehaviour {
 	public int ATK;
 	public int SPD;
 	public int HitP;
+    public int Maxhp;
 	public int DEF;
 	public int RNG;
 
     public string cost;
 
     public bool canAttack;
+    public bool canHeal;
 
 	//atributo de controle;
-	public string Faccao; 
+	public string Faccao;
+
+    public bool engineer;
 
 	public virtual void Attack(HexUnit Target) {
         if(!Location.isNeighbour(Target.Location))
@@ -102,13 +111,30 @@ public class HexUnit : MonoBehaviour {
 			}
 		}
         canAttack=false;
+        canHeal=false;
         CanMove=false;
 	}
+
+    public virtual void heal(HexUnit Target)
+    {
+        if (!Location.isNeighbour(Target.Location))
+            return;
+
+        Target.HitP += (int)(Maxhp * 0.3);
+        Target.UpdateHP();
+
+        canAttack = false;
+        canHeal = false;
+        CanMove = false;
+    }
 
 	public void UpdateHP() {
         HB.SetHP(HitP);
 		if(HitP<=0)
             Grid.RemoveUnit(this);
+        if (HitP > Maxhp)
+            HitP = Maxhp;
+            
 	}
 
 	public virtual int VisionRange {

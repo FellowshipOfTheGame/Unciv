@@ -84,6 +84,7 @@ public class HexGrid : MonoBehaviour {
 		foreach (HexUnit hu in units) {
 			hu.CanMove=true;
             hu.canAttack=true;
+            hu.canHeal = true;
 		}
         foreach (var c in cities) { 
             P.SetResources(c.ResPT);    
@@ -124,6 +125,7 @@ public class HexGrid : MonoBehaviour {
 		unit.Location = location;
 		unit.Orientation = orientation;
         unit.Faccao=Fac;
+        unit.engineer = false;
         if(Fac=="Barbaros" || Fac=="Minor")
             AB.Units.Add(unit);
         else
