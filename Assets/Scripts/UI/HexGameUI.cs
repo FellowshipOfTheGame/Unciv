@@ -36,7 +36,12 @@ public class HexGameUI : MonoBehaviour {
 		if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (selectedUnit) {
 				if (Input.GetMouseButtonDown (1)) {
-                    if(selectedUnit.canAttack){ 
+                    if(selectedUnit.canAttack){
+                        if (selectedUnit.engineer)
+                        {
+                            /*open new city menu*/
+                            
+                        }
                         Debug.Log("Unidade pode atacar");
                         HexCell currentCell = GetCellUnderCursor();
                         if(currentCell.Unit) {

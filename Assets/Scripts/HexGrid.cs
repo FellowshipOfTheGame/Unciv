@@ -85,6 +85,10 @@ public class HexGrid : MonoBehaviour {
 			hu.CanMove=true;
             hu.canAttack=true;
             hu.canHeal = true;
+            if(hu.consdelay > 0)
+            {
+                hu.consdelay -= 1;
+            }
 		}
         foreach (var c in cities) { 
             P.SetResources(c.ResPT);    

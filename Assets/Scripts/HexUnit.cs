@@ -70,7 +70,7 @@ public class HexUnit : MonoBehaviour {
 	public int ATK;
 	public int SPD;
 	public int HitP;
-    public int Maxhp;
+    private int Maxhp;
 	public int DEF;
 	public int RNG;
 
@@ -78,7 +78,7 @@ public class HexUnit : MonoBehaviour {
 
     public bool canAttack;
     public bool canHeal;
-
+    public int consdelay = 0;//delay apos ter construido algo
 	//atributo de controle;
 	public string Faccao;
 
@@ -126,6 +126,11 @@ public class HexUnit : MonoBehaviour {
         canAttack = false;
         canHeal = false;
         CanMove = false;
+    }
+
+    public void newcity(HexCell citycell)
+    {
+
     }
 
 	public void UpdateHP() {
