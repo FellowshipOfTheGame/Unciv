@@ -40,6 +40,7 @@ public class HexGameUI : MonoBehaviour {
                         if (selectedUnit.engineer)
                         {
                             /*open new city menu*/
+                            selectedUnit.Emenu.OpenMenu();
                             
                         }
                         Debug.Log("Unidade pode atacar");

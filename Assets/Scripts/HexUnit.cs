@@ -79,6 +79,8 @@ public class HexUnit : MonoBehaviour {
     public bool canAttack;
     public bool canHeal;
     public int consdelay = 0;//delay apos ter construido algo
+
+    public engineermenu Emenu;
 	//atributo de controle;
 	public string Faccao;
 
@@ -126,11 +128,6 @@ public class HexUnit : MonoBehaviour {
         canAttack = false;
         canHeal = false;
         CanMove = false;
-    }
-
-    public void newcity(HexCell citycell)
-    {
-
     }
 
 	public void UpdateHP() {
