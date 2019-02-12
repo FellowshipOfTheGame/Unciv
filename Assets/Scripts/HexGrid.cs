@@ -83,6 +83,11 @@ public class HexGrid : MonoBehaviour {
 	public void Pass(){ 
 		foreach (HexUnit hu in units) {
 			hu.Passe();
+            hu.canHeal = true;
+            if(hu.consdelay > 0)
+            {
+                hu.consdelay -= 1;
+            }
 		}
         foreach (var c in cities) { 
             P.SetResources(c.ResPT);    
@@ -123,6 +128,7 @@ public class HexGrid : MonoBehaviour {
 		unit.Location = location;
 		unit.Orientation = orientation;
         unit.Faccao=Fac;
+        unit.engineer = false;
         if(Fac=="Barbaros" || Fac=="Minor")
             AB.Units.Add(unit);
         else

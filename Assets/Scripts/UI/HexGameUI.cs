@@ -36,12 +36,26 @@ public class HexGameUI : MonoBehaviour {
 		if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (selectedUnit) {
 				if (Input.GetMouseButtonDown (1)) {
-                    if(selectedUnit.canAttack) { 
+                    if(selectedUnit.canAttack){
+                        if (selectedUnit.engineer)
+                        {
+                            /*open new city menu*/
+                            selectedUnit.Emenu.OpenMenu();
+                            
+                        }
                         Debug.Log("Unidade pode atacar");
                         HexCell currentCell = GetCellUnderCursor();
                         if(currentCell.Unit) {
                             Debug.Log("Tem unidade");
-                            if(currentCell.Unit.Faccao!=selectedUnit.Faccao) {
+                            if (selectedUnit.engineer && (currentCell.Unit.Faccao == selectedUnit.Faccao))
+                            {
+                                Debug.Log("Unidade Aliada");
+                                selectedUnit.heal(currentCell.Unit);
+                                for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+                                    selectedUnit.Location.GetNeighbor(d).DisableHighlight();
+                            }
+                                
+                            else if(currentCell.Unit.Faccao!=selectedUnit.Faccao) {
                                 Debug.Log("Unidade inimiga");
                                 selectedUnit.Attack(currentCell.Unit);
                                 for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
@@ -89,14 +103,23 @@ public class HexGameUI : MonoBehaviour {
 
     public void HighLight() { 
         for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
-                        if(selectedUnit)
-			                if (selectedUnit.Location.GetNeighbor(d)) {
-                                if(selectedUnit.Location.GetNeighbor(d).Fort)
-                                    selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
-                                if (selectedUnit.Location.GetNeighbor(d).Unit)
-                                    if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao)
-				                        selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
-                            }
+            if(selectedUnit)
+			    if (selectedUnit.Location.GetNeighbor(d)) {
+                    if(selectedUnit.Location.GetNeighbor(d).Fort)
+                        selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
+                    if (selectedUnit.Location.GetNeighbor(d).Unit)
+                        if(selectedUnit.Location.GetNeighbor(d).Unit.Faccao!=selectedUnit.Faccao)
+				            selectedUnit.Location.GetNeighbor(d).EnableHighlight (Color.red);
+                }
+            if (selectedUnit)
+                if (selectedUnit.Location.GetNeighbor(d))
+                    if (selectedUnit.Location.GetNeighbor(d).Unit)
+                    {
+                        if (selectedUnit.Location.GetNeighbor(d).Unit.Faccao != selectedUnit.Faccao)
+                            selectedUnit.Location.GetNeighbor(d).EnableHighlight(Color.red);
+                        if (selectedUnit.engineer && (selectedUnit.Location.GetNeighbor(d).Unit.Faccao == selectedUnit.Faccao))
+                            selectedUnit.Location.GetNeighbor(d).EnableHighlight(Color.blue);
+                    }
         }    
     }
 
