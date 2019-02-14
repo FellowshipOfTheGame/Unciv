@@ -36,13 +36,21 @@ public class HexGameUI : MonoBehaviour {
 		if (!EventSystem.current.IsPointerOverGameObject()) {
 			if (selectedUnit) {
 				if (Input.GetMouseButtonDown (1)) {
-                    if(selectedUnit.canAttack){
-                        if (selectedUnit.engineer)
+                    if (selectedUnit.engineer)
+                    {
+                        /*open new city menu*/
+                        selectedUnit.Emenu.OpenMenu();
+
+                        if(selectedUnit.Emenu.construct)
                         {
-                            /*open new city menu*/
-                            selectedUnit.Emenu.OpenMenu();
-                            
+                            selectedUnit.construct();
+                            NCityHighLight();
+                            HexCell currentCell = GetCellUnderCursor();
+                            hexMap.CreateCity(currentCell);
                         }
+                    }
+
+                    if (selectedUnit.canAttack){                        
                         Debug.Log("Unidade pode atacar");
                         HexCell currentCell = GetCellUnderCursor();
                         if(currentCell.Unit) {
@@ -105,9 +113,24 @@ public class HexGameUI : MonoBehaviour {
                         if (selectedUnit.Location.GetNeighbor(d).Unit.Faccao != selectedUnit.Faccao)
                             selectedUnit.Location.GetNeighbor(d).EnableHighlight(Color.red);
                         if (selectedUnit.engineer && (selectedUnit.Location.GetNeighbor(d).Unit.Faccao == selectedUnit.Faccao))
-                            selectedUnit.Location.GetNeighbor(d).EnableHighlight(Color.blue);
+                            selectedUnit.Location.GetNeighbor(d).EnableHighlight(Color.green);
                     }
         }    
+    }
+
+    //locais possiveis para criar uma nova cidade
+    public void NCityHighLight()
+    {
+        for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+        {
+            if (selectedUnit)
+                if (selectedUnit.Location.GetNeighbor(d))
+                    if (selectedUnit.Location.GetNeighbor(d).Unit)
+                    {
+                        if (!selectedUnit.Location.GetNeighbor(d).city && !selectedUnit.Location.GetNeighbor(d).Unit)
+                            selectedUnit.Location.GetNeighbor(d).EnableHighlight(Color.blue);
+                    }
+        }
     }
 
 	//selects the actual city and disables any different city menu
