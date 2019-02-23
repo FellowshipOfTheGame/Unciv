@@ -334,9 +334,7 @@ public class HexUnit : MonoBehaviour {
     public static void Load (BinaryReader reader, HexGrid grid) {
 		HexCoordinates coordinates = HexCoordinates.Load(reader);
 		float orientation = reader.ReadSingle();
-		grid.AddUnit(
-			Instantiate(HexGrid.unitPrefabsI[0]), grid.GetCell(coordinates), orientation, "Barbaros"
-		);
+		grid.AddUnit(Instantiate(HexGrid.unitPrefabsI[0]), grid.GetCell(coordinates), orientation, "Barbaros", false);
 	}
 
 	void OnEnable () {

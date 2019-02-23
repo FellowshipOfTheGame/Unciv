@@ -179,8 +179,8 @@ public class HexMapEditor : MonoBehaviour {
     void CreateUnit () {
 		HexCell cell = GetCellUnderCursor();
 		if (cell && !cell.Unit) {
-			hexGrid.AddUnit(Instantiate(HexGrid.unitPrefabsI[0]), cell, Random.Range(0f, 360f), "Barbaros");
-		}
+            hexGrid.AddUnit(Instantiate(HexGrid.unitPrefabsI[0]), cell, Random.Range(0f, 360f), "Barbaros", false);
+        }
 	}
 
 	void DestroyUnit () {

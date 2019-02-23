@@ -49,7 +49,6 @@ public class HexGameUI : MonoBehaviour {
                             hexMap.CreateCity(currentCell);
                         }
                     }
-
                     if (selectedUnit.canAttack){                        
                         Debug.Log("Unidade pode atacar");
                         HexCell currentCell = GetCellUnderCursor();

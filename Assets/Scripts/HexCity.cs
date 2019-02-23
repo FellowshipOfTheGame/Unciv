@@ -68,11 +68,12 @@ public class HexCity : MonoBehaviour {
 		//puts it in city canvas
 		individualCityMenu.transform.SetParent(cityMenuCanvas.transform, false);
 		//sets the button to spawning units
-		individualCityMenu.GetComponentInChildren<Button> ().onClick.AddListener(SpawnUnit);
+		individualCityMenu.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(SpawnZeppelin);
+        individualCityMenu.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(SpawnSupport);
 
-        
-		//moves the panel
-		Vector3 aux = new Vector3(475, 0, 0);
+
+        //moves the panel
+        Vector3 aux = new Vector3(475, 0, 0);
 		individualCityMenu.transform.localPosition = aux;
 		canSpawnZeppelin = true;
         canSpawnSupport = true;
@@ -151,11 +152,10 @@ public class HexCity : MonoBehaviour {
 				aux.SetActive (false);
 			}
 		}
-
 		return;
 	}
 
-	public void SpawnUnit() {
+	public void SpawnZeppelin() {
 		//highlight all available cells around the city
 		for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
 			if (location.GetNeighbor(d) && !location.GetNeighbor(d).Unit && !location.GetNeighbor(d).IsUnderwater && location.GetElevationDifference(d) < 2
@@ -167,9 +167,23 @@ public class HexCity : MonoBehaviour {
 		return;
 	}
 
-	void CreateZeppelin (HexCell cell) {
+    public void SpawnSupport()
+    {
+        //highlight all available cells around the city
+        for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+        {
+            if (location.GetNeighbor(d) && !location.GetNeighbor(d).Unit && !location.GetNeighbor(d).IsUnderwater && location.GetElevationDifference(d) < 2
+                && !location.GetNeighbor(d).city)
+                location.GetNeighbor(d).EnableHighlight(Color.blue);
+        }
+        //stores the information that an unity can be spawned
+        canSpawnSupport = true;
+        return;
+    }
+
+    void CreateZeppelin (HexCell cell) {
 		if (cell && !cell.Unit) {
-			Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[0]), cell, Random.Range(0f, 360f), P.Faccao);
+			Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[0]), cell, Random.Range(0f, 360f), P.Faccao, false);
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
 			    location.GetNeighbor (d).DisableHighlight ();
 		    }
@@ -181,7 +195,7 @@ public class HexCity : MonoBehaviour {
     {
         if (cell && !cell.Unit)
         {
-            Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[1]), cell, Random.Range(0f, 360f), P.Faccao);
+            Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[1]), cell, Random.Range(0f, 360f), P.Faccao, true);
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
                 location.GetNeighbor(d).DisableHighlight();
@@ -189,7 +203,6 @@ public class HexCity : MonoBehaviour {
 
         }
     }
-
 
     public HexCell GetCellUnderCursor () {
 		return Grid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));

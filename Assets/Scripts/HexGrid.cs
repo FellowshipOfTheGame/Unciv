@@ -122,13 +122,13 @@ public class HexGrid : MonoBehaviour {
 		city.Destroy();
 	}
 
-	public void AddUnit (HexUnit unit, HexCell location, float orientation, string Fac) {
+	public void AddUnit (HexUnit unit, HexCell location, float orientation, string Fac, bool engineer) {
 
 		unit.Grid = this;
 		unit.Location = location;
 		unit.Orientation = orientation;
         unit.Faccao=Fac;
-        unit.engineer = false;
+        unit.engineer = engineer;
         if(Fac=="Barbaros" || Fac=="Minor")
             AB.Units.Add(unit);
         else
