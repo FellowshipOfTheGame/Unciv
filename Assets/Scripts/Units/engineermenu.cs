@@ -9,13 +9,14 @@ public class engineermenu : MonoBehaviour {
     public Canvas menuCanvas;
     public GameObject menuA;//é possivel construir
     public GameObject menuB;//não é possivel construir
-
+    public bool construct;//se vai ou não construir
 
     private void Awake()
     {
         menuCanvas.enabled = false;
         menuA.SetActive(false);
         menuB.SetActive(false);
+        construct = false;
     }
     public void OpenMenu()
     {
@@ -33,9 +34,23 @@ public class engineermenu : MonoBehaviour {
         }
     }
 
-    public void construc()
+    public void close()
     {
-        
+        menuCanvas.enabled = false;
+        menuA.SetActive(false);
+        menuB.SetActive(false);
+    }
+
+    public void yes()
+    {
+        close();
+        construct = true;
+    }
+
+    public void no_ok()
+    {
+        close();
+        construct = false;
     }
 
 }

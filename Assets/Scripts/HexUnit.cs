@@ -117,6 +117,15 @@ public class HexUnit : MonoBehaviour {
         CanMove=false;
 	}
 
+    public void construct()
+    {
+        Emenu.construct = false;
+        canAttack = false;
+        canHeal = false;
+        CanMove = false;
+        consdelay = 4;
+    }
+
     public virtual void heal(HexUnit Target)
     {
         if (!Location.isNeighbour(Target.Location))
