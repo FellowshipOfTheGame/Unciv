@@ -12,7 +12,8 @@ public class HexCity : MonoBehaviour {
 	GameObject individualCityMenu;
 	HexCell location;
 	float orientation;
-	bool canSpawn;
+	bool canSpawnZeppelin;
+    bool canSpawnSupport;
 
     private Player P;
     public string ResPT="5";
@@ -73,13 +74,14 @@ public class HexCity : MonoBehaviour {
 		//moves the panel
 		Vector3 aux = new Vector3(475, 0, 0);
 		individualCityMenu.transform.localPosition = aux;
-		canSpawn = true;
-	}
+		canSpawnZeppelin = true;
+        canSpawnSupport = true;
+    }
 
 	void Update () {
         
 		//if an unity can be spawned
-		if (canSpawn == true) {
+		if (canSpawnZeppelin == true) {
 			//when right click on a cell
 			if (Input.GetMouseButtonDown (0)) {
 				//get the cell
@@ -90,15 +92,39 @@ public class HexCity : MonoBehaviour {
 					if (location.GetNeighbor(d) && location.GetNeighbor (d) == aux2 && !(aux2 = location.GetNeighbor (d)).Unit && !aux2.IsUnderwater && location.GetElevationDifference(d) < 2
 						&& !location.GetNeighbor(d).city) {
                         if(P.CanCreate(HexGrid.unitPrefabs[0].cost)){
-						    CreateUnit (aux2);
+						    CreateZeppelin (aux2);
                             P.BuyUnit(HexGrid.unitPrefabs[0].cost);
                         }
 					}
 					
 				}
-				canSpawn = false;
+				canSpawnZeppelin = false;
 			}
 		}
+        if (canSpawnSupport == true){
+            //when right click on a cell
+            if (Input.GetMouseButtonDown(0))
+            {
+                //get the cell
+                HexCell aux2 = GetCellUnderCursor();
+                //search the selected cell beetween location's neighbors, while disabling the highlights
+                for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+                {
+                    //if the correct cell is found, instantiate an unit there
+                    if (location.GetNeighbor(d) && location.GetNeighbor(d) == aux2 && !(aux2 = location.GetNeighbor(d)).Unit && !aux2.IsUnderwater && location.GetElevationDifference(d) < 2
+                        && !location.GetNeighbor(d).city)
+                    {
+                        if (P.CanCreate(HexGrid.unitPrefabs[1].cost))
+                        {
+                            CreateSupport(aux2);
+                            P.BuyUnit(HexGrid.unitPrefabs[1].cost);
+                        }
+                    }
+
+                }
+                canSpawnSupport = false;
+            }
+        }
         Grid.IncreaseVisibility(Location, VisionRange);
         
 	}
@@ -130,7 +156,6 @@ public class HexCity : MonoBehaviour {
 	}
 
 	public void SpawnUnit() {
-		Debug.Log ("Spawnando");
 		//highlight all available cells around the city
 		for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
 			if (location.GetNeighbor(d) && !location.GetNeighbor(d).Unit && !location.GetNeighbor(d).IsUnderwater && location.GetElevationDifference(d) < 2
@@ -138,11 +163,11 @@ public class HexCity : MonoBehaviour {
 				location.GetNeighbor (d).EnableHighlight (Color.blue);
 		}
 		//stores the information that an unity can be spawned
-		canSpawn = true;
+		canSpawnZeppelin = true;
 		return;
 	}
 
-	void CreateUnit (HexCell cell) {
+	void CreateZeppelin (HexCell cell) {
 		if (cell && !cell.Unit) {
 			Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[0]), cell, Random.Range(0f, 360f), P.Faccao);
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++) {
@@ -152,7 +177,21 @@ public class HexCity : MonoBehaviour {
 		}
 	}
 
-	public HexCell GetCellUnderCursor () {
+    void CreateSupport(HexCell cell)
+    {
+        if (cell && !cell.Unit)
+        {
+            Grid.AddUnit(Instantiate(HexGrid.unitPrefabs[1]), cell, Random.Range(0f, 360f), P.Faccao);
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            {
+                location.GetNeighbor(d).DisableHighlight();
+            }
+
+        }
+    }
+
+
+    public HexCell GetCellUnderCursor () {
 		return Grid.GetCell(Camera.main.ScreenPointToRay(Input.mousePosition));
 	}
 
