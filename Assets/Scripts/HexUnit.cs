@@ -78,7 +78,7 @@ public class HexUnit : MonoBehaviour {
 
     public bool canAttack;
     public bool canHeal;
-    public int consdelay = 0;//delay apos ter construido algo
+    public int consdelay = 1;//delay apos ter construido algo
 
     public engineermenu Emenu;
 	//atributo de controle;

@@ -150,7 +150,7 @@ public class HexMapEditor : MonoBehaviour {
 
 	//Now you spawn a city in MapEditor, units are spawned in HexCity
 	public void CreateCity (HexCell cell) {
-		if (cell && !cell.city) {
+		if (cell && !cell.city && !cell.Unit) {
 			hexGrid.AddCity (Instantiate (HexGrid.cityPrefab), cell, Random.Range (0f, 360f));
 		}
 	}

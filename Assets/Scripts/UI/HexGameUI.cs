@@ -38,15 +38,23 @@ public class HexGameUI : MonoBehaviour {
 				if (Input.GetMouseButtonDown (1)) {
                     if (selectedUnit.engineer)
                     {
+                        Debug.Log("pode abrir o menu");
                         /*open new city menu*/
                         selectedUnit.Emenu.OpenMenu();
 
                         if(selectedUnit.Emenu.construct)
                         {
-                            selectedUnit.construct();
                             NCityHighLight();
                             HexCell currentCell = GetCellUnderCursor();
-                            hexMap.CreateCity(currentCell);
+                            if (!currentCell.Unit && !currentCell.city)
+                            {
+                                hexMap.CreateCity(currentCell);
+                                selectedUnit.construct();
+                            }
+                            else
+                                selectedUnit.Emenu.construct = false;
+
+                            selectedUnit.Emenu.IsOpen = false;
                         }
                     }
                     if (selectedUnit.canAttack){                        
@@ -140,7 +148,7 @@ public class HexGameUI : MonoBehaviour {
                     if (selectedUnit.Location.GetNeighbor(d).Unit)
                     {
                         if (!selectedUnit.Location.GetNeighbor(d).city && !selectedUnit.Location.GetNeighbor(d).Unit)
-                            selectedUnit.Location.GetNeighbor(d).EnableHighlight(Color.blue);
+                            selectedUnit.Location.GetNeighbor(d).EnableHighlight(Color.grey);
                     }
         }
     }
