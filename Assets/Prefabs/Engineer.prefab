@@ -55,7 +55,7 @@ MonoBehaviour:
   HitP: 40
   DEF: 5
   RNG: 1
-  type: 0
+  type: 4
   cost: 50
   canAttack: 0
   canHeal: 0

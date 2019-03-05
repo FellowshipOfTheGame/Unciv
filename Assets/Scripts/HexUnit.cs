@@ -92,11 +92,13 @@ public class HexUnit : MonoBehaviour {
             return;
 		//verificar se a distancia esta adequada para o ataque ao alvo;
 		var DMG = this.ATK*(1f-Target.DEF/100f);
-		Target.HitP-=(int)DMG; 
+        DMG = vantagem(type, Target.type, DMG);
+        Target.HitP-=(int)DMG; 
 		Target.UpdateHP();
 		if(Target.HitP>0) { //se o alvo sobreviveu o ataque tem chances de revidar;
 			//verifica se o contra-ataque tem alcance;
 			DMG = Target.ATK*(1f-this.DEF/100f);
+            DMG = vantagem(Target.type, type, DMG);
 			this.HitP-=(int)DMG;
 			this.UpdateHP();
 		}
@@ -356,6 +358,39 @@ public class HexUnit : MonoBehaviour {
         canAttack=true;
         CanMove=true;
         location.EnableHighlight(Color.black);
+    }
+
+    public float vantagem(int AtcType, int DefType, float dano)
+    {
+        float vant = 0;
+        if (0 <= AtcType && AtcType < 3)
+        {
+            if (0 <= DefType && DefType < 3)
+                vant = DefType - AtcType;
+
+            else if (AtcType == 2 && (DefType == 0 || DefType == 3))
+                vant = 1;
+            else if (AtcType == 0 && DefType == 4)
+                vant = -1;
+        }
+        else if (AtcType == 3)
+        {
+            if (DefType == 0)
+                vant = 1;
+            else if (DefType == 2)
+            {
+                vant = -1;
+            }
+        }
+        else if (AtcType == 4 && DefType == 0)
+            vant = -1;
+
+        if (vant == 1)
+            dano = (float)1.25 * dano;
+        else if (vant == -1)
+            dano = (float)0.75 * dano;
+
+        return dano;
     }
 
     //	void OnDrawGizmos () {
