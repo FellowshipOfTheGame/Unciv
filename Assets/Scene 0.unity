@@ -3550,6 +3550,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1535494441459902, guid: cbfcf130afc811441aeb77eea3a25de5, type: 3}
+      propertyPath: m_Name
+      value: Campaign  Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010238200440040, guid: cbfcf130afc811441aeb77eea3a25de5, type: 3}
+      propertyPath: m_Name
+      value: Skirmish Button
+      objectReference: {fileID: 0}
     - target: {fileID: 114905615752719564, guid: cbfcf130afc811441aeb77eea3a25de5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3710,10 +3718,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 185456818}
-    - target: {fileID: 1535494441459902, guid: cbfcf130afc811441aeb77eea3a25de5, type: 3}
-      propertyPath: m_Name
-      value: Campaign  Button
-      objectReference: {fileID: 0}
     - target: {fileID: 114261947230702546, guid: cbfcf130afc811441aeb77eea3a25de5,
         type: 3}
       propertyPath: m_Text
@@ -3805,10 +3809,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010238200440040, guid: cbfcf130afc811441aeb77eea3a25de5, type: 3}
-      propertyPath: m_Name
-      value: Skirmish Button
       objectReference: {fileID: 0}
     - target: {fileID: 114907181086211154, guid: cbfcf130afc811441aeb77eea3a25de5,
         type: 3}

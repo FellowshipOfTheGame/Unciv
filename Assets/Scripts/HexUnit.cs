@@ -73,6 +73,7 @@ public class HexUnit : MonoBehaviour {
     private int Maxhp;
 	public int DEF;
 	public int RNG;
+    public int type;
 
     public string cost;
 
