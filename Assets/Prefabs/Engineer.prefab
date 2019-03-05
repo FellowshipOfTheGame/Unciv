@@ -52,9 +52,10 @@ MonoBehaviour:
   CanMove: 1
   ATK: 15
   SPD: 10
-  HitP: 100
-  DEF: 10
+  HitP: 40
+  DEF: 5
   RNG: 1
+  type: 0
   cost: 50
   canAttack: 0
   canHeal: 0
