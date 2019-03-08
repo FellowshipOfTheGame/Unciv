@@ -48,10 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HB: {fileID: 5848686839171329549}
   CanMove: 1
-  ATK: 15
+  ATK: 20
   SPD: 10
   HitP: 50
-  DEF: 15
+  DEF: 25
   RNG: 1
   type: 2
   cost: 15
@@ -209,7 +209,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1.5}
-  m_SizeDelta: {x: 16, y: 3}
+  m_SizeDelta: {x: 15, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3235811121684738067
 CanvasRenderer:
@@ -239,7 +239,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: a69c5496b70ae9745bb4a80ad1f1bc58, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

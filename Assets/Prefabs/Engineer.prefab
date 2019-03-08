@@ -130,7 +130,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1.5}
-  m_SizeDelta: {x: 16, y: 3}
+  m_SizeDelta: {x: 15, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1517957174830425826
 CanvasRenderer:
@@ -160,7 +160,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: a69c5496b70ae9745bb4a80ad1f1bc58, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -395,11 +395,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 114665426697337900}
-    - target: {fileID: 7422293386951663735, guid: 28b2afe583327434eae2029656b94615,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 114665426697337900}
     - target: {fileID: 7422073814395342941, guid: 28b2afe583327434eae2029656b94615,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -425,6 +420,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1983907952613830}
+    - target: {fileID: 7422293386951663735, guid: 28b2afe583327434eae2029656b94615,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 114665426697337900}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28b2afe583327434eae2029656b94615, type: 3}
 --- !u!224 &224254988544117344 stripped
