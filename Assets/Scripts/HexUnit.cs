@@ -128,6 +128,8 @@ public class HexUnit : MonoBehaviour {
         canHeal = false;
         CanMove = false;
         consdelay = 4;
+        string cost = "40";
+        P.BuyUnit(cost);
     }
 
     public void CanConstruct()

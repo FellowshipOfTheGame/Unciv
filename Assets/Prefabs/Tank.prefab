@@ -58,6 +58,7 @@ MonoBehaviour:
   canAttack: 0
   canHeal: 0
   consdelay: 1
+  CanCons: 0
   Emenu: {fileID: 0}
   Faccao: 
   engineer: 0
