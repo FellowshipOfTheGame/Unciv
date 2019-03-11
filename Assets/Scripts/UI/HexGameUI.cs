@@ -47,7 +47,7 @@ public class HexGameUI : MonoBehaviour {
                         {
                             NCityHighLight();
                             HexCell currentCell = GetCellUnderCursor();
-                            if (!currentCell.Unit && !currentCell.city)
+                            if (!currentCell.Unit && !currentCell.city && selectedUnit.Location.isNeighbour(currentCell))
                             {
                                 hexMap.CreateCity(currentCell);
                                 selectedUnit.construct();
