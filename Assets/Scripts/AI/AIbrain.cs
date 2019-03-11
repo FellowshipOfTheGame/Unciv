@@ -9,7 +9,7 @@ public class AIbrain : MonoBehaviour {
 
     public HexGrid grid;
 
-    public Canvas Win;
+    public GameObject Win;
 
     public void Activate() {
         if(Units.Count<=0 && grid.Forts.Count<=0) { 
