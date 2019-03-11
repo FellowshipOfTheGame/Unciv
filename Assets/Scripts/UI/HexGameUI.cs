@@ -40,7 +40,6 @@ public class HexGameUI : MonoBehaviour {
                     {
                         Debug.Log("pode abrir o menu");
                         /*open new city menu*/
-                        selectedUnit.CanConstruct();
                         selectedUnit.Emenu.OpenMenu();
 
                         if(selectedUnit.Emenu.construct)
@@ -58,7 +57,7 @@ public class HexGameUI : MonoBehaviour {
                             selectedUnit.Emenu.IsOpen = false;
                         }
                     }
-                    if (selectedUnit.canAttack){                        
+                    if (selectedUnit.canAttack){   
                         Debug.Log("Unidade pode atacar");
                         HexCell currentCell = GetCellUnderCursor();
                         if(currentCell.Unit) {

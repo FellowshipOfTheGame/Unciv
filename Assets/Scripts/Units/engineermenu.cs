@@ -24,6 +24,7 @@ public class engineermenu : MonoBehaviour {
         {
             IsOpen = true;
             Debug.Log("abrindo o menu");
+            EngUnit.CanConstruct();
             menuCanvas.enabled = true;
             if (EngUnit.consdelay == 0 && EngUnit.CanCons)
             {

@@ -161,10 +161,13 @@ public class HexUnit : MonoBehaviour {
             
 	}
 
-    public virtual void Seize(HexCity HC) { 
-        Grid.RemoveCity(HC);
-        canAttack=false;
-        CanMove=false;
+    public virtual void Seize(HexCity HC) {
+        if (Location.isNeighbour(HC.Location))
+        {
+            Grid.RemoveCity(HC);
+            canAttack = false;
+            CanMove = false;
+        }
     }
 
     public virtual void Seize(HexFort HF) { 
