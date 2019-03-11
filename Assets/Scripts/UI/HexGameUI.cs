@@ -40,6 +40,7 @@ public class HexGameUI : MonoBehaviour {
                     {
                         Debug.Log("pode abrir o menu");
                         /*open new city menu*/
+                        selectedUnit.CanConstruct();
                         selectedUnit.Emenu.OpenMenu();
 
                         if(selectedUnit.Emenu.construct)

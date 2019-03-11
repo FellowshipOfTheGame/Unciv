@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class engineermenu : MonoBehaviour {
 
-    
     public HexUnit EngUnit;
     public Canvas menuCanvas;
     public GameObject menuA;//é possivel construir
@@ -26,7 +25,7 @@ public class engineermenu : MonoBehaviour {
             IsOpen = true;
             Debug.Log("abrindo o menu");
             menuCanvas.enabled = true;
-            if (EngUnit.consdelay == 0)
+            if (EngUnit.consdelay == 0 && EngUnit.CanCons)
             {
                 menuA.SetActive(true);
                 menuB.SetActive(false);

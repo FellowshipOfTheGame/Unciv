@@ -80,6 +80,7 @@ public class HexUnit : MonoBehaviour {
     public bool canAttack;
     public bool canHeal;
     public int consdelay = 1;//delay apos ter construido algo
+    public bool CanCons;
 
     public engineermenu Emenu;
 	//atributo de controle;
@@ -127,6 +128,13 @@ public class HexUnit : MonoBehaviour {
         canHeal = false;
         CanMove = false;
         consdelay = 4;
+    }
+
+    public void CanConstruct()
+    {
+        string cost = "40";
+
+        CanCons = P.CanCreate(cost);
     }
 
     public virtual void heal(HexUnit Target)
