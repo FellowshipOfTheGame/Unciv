@@ -49,7 +49,7 @@ MonoBehaviour:
   HB: {fileID: 5848686839171329549}
   CanMove: 1
   ATK: 20
-  SPD: 10
+  SPD: 20
   HitP: 50
   DEF: 25
   RNG: 1
