@@ -11106,6 +11106,12 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!1 &1242333941 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1919418253005472, guid: 16697f6535098d645b6424e697ecd9c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1242333932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1247198270
 GameObject:
   m_ObjectHideFlags: 0
@@ -11287,6 +11293,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2943753107156551578, guid: d1da47604a0ce9a4d9420b21c9c0814a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1718752608943621}
+    - target: {fileID: 2943753107156551578, guid: d1da47604a0ce9a4d9420b21c9c0814a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943753107156551578, guid: d1da47604a0ce9a4d9420b21c9c0814a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1242333941}
+    - target: {fileID: 2943753107156551578, guid: d1da47604a0ce9a4d9420b21c9c0814a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 9102172218917220303, guid: d1da47604a0ce9a4d9420b21c9c0814a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1571186511}
+    - target: {fileID: 9102172218917220303, guid: d1da47604a0ce9a4d9420b21c9c0814a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Pass
+      objectReference: {fileID: 0}
     - target: {fileID: 1718751656772302, guid: d1da47604a0ce9a4d9420b21c9c0814a, type: 3}
       propertyPath: m_IsActive
       value: 1
