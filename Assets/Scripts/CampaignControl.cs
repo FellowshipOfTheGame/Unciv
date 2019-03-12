@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.SceneManagement;
 
 public class CampaignControl : MonoBehaviour {
     
@@ -41,7 +42,7 @@ public class CampaignControl : MonoBehaviour {
         string path = Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map")));
         if (File.Exists(path))
         {
-            SLM.Load(path);
+            SceneManager.LoadScene(1);
             return true;
         }
         else
