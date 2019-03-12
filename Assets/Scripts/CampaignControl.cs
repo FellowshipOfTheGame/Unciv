@@ -12,6 +12,8 @@ public class CampaignControl : MonoBehaviour {
     public static int actualLevel;
     public static int actualFactionIndex;
     public static List<Faccao> faccoes = new List<Faccao>();
+    public List<GameObject> storyIntro = new List<GameObject>();
+    public List<GameObject> storyOutro = new List<GameObject>();
 
     // Use this for initialization
     void Start () {
@@ -19,12 +21,21 @@ public class CampaignControl : MonoBehaviour {
         //Create the directory to player maps
         if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "PlayerMaps")))
             Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "PlayerMaps"));
+        // activates the story intro
+        storyIntro[actualLevel].SetActive(true);
         //loads the path to the actualFaction and actuallevel
         SLM.Load(Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map"))));
+    }
+    //activates the story outro
+    public bool ActiveOutro(){
+        Debug.Log(actualLevel);
+        storyOutro[actualLevel].SetActive(true);
+        return true;
     }
 
     public bool NextLevel (){
         faccoes[actualFactionIndex].completedLevels[actualLevel] = true;
+        storyOutro[actualLevel].SetActive(false);
         actualLevel++;
         Save();
         string path = Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map")));

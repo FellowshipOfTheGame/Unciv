@@ -9,12 +9,12 @@ public class AIbrain : MonoBehaviour {
 
     public HexGrid grid;
 
-    public GameObject Win;
+    public CampaignControl campaignControl;
 
     public void Activate() {
         if(Units.Count<=0 && grid.Forts.Count<=0) { 
             //Game Over Player Won!
-            Win.gameObject.SetActive(true);
+            campaignControl.ActiveOutro();
             return;
         }
 
