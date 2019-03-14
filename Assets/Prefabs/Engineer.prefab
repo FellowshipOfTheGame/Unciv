@@ -56,7 +56,7 @@ MonoBehaviour:
   DEF: 10
   RNG: 1
   type: 4
-  cost: 50
+  cost: 40
   canAttack: 0
   canHeal: 0
   consdelay: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '(Cost: 40 Resources)'
+  m_Text: '(Cost: 50 Resources)'
 --- !u!1 &4850766390181336294
 GameObject:
   m_ObjectHideFlags: 0

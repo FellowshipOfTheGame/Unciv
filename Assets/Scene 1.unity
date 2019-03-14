@@ -11201,6 +11201,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1718751656772302, guid: d1da47604a0ce9a4d9420b21c9c0814a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2943753107156551578, guid: d1da47604a0ce9a4d9420b21c9c0814a,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -11235,10 +11239,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1718751656772302, guid: d1da47604a0ce9a4d9420b21c9c0814a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224798223644873248, guid: d1da47604a0ce9a4d9420b21c9c0814a,
         type: 3}
@@ -13497,6 +13497,8 @@ MonoBehaviour:
   unitsI:
   - {fileID: 114145814361460364, guid: fd61d9eca48726548b4bf10929168216, type: 3}
   - {fileID: 114229745700856446, guid: e03f5342293102a4eb0a6663df09b969, type: 3}
+  - {fileID: 5646127033421868975, guid: 961e70a256d185445b30a0c54a728511, type: 3}
+  - {fileID: 7726463013656126661, guid: 6eb367dc6d35e7b42a4be9a7c45c5808, type: 3}
   citiesP: {fileID: 114230749427516188, guid: cb7be9a74fd6e4cbdb5be2ac7319e699, type: 3}
   Fort: {fileID: 114581115360795258, guid: f2967fed6444e43559e32916c2465d27, type: 3}
   cityMenuPrefab: {fileID: 1354805677061132, guid: 019022f3b0ed14fb79e54aa25f6c9671,

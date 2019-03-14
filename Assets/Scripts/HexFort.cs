@@ -61,7 +61,8 @@ public class HexFort : MonoBehaviour {
 	
     void CreateUnit (HexCell cell) {
 		if (cell && !cell.Unit) {
-			Grid.AddUnit(Instantiate(HexGrid.unitPrefabsI[1]), cell, Random.Range(0f, 360f), "Minor", false);
+            int index = (int)(Random.Range(0, 4) % 4);
+			Grid.AddUnit(Instantiate(HexGrid.unitPrefabsI[index]), cell, Random.Range(0f, 360f), "Minor", false);
 		}
 	}
 
