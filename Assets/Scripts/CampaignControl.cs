@@ -35,6 +35,8 @@ public class CampaignControl : MonoBehaviour {
     }
 
     public bool NextLevel (){
+        if (actualLevel + 1 == 5)
+            return false;
         faccoes[actualFactionIndex].completedLevels[actualLevel] = true;
         storyOutro[actualLevel].SetActive(false);
         actualLevel++;
@@ -50,10 +52,10 @@ public class CampaignControl : MonoBehaviour {
     }
 
     public static int FindLastLevel (){
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < 5; j++)
             if (faccoes[actualFactionIndex].completedLevels[j] == false)
                 return j;
-        return 9;
+        return 4;
     }
 
     //Saves the list of completed levels to a file
@@ -81,11 +83,7 @@ public class CampaignControl : MonoBehaviour {
         else{
             //creates all factions and stores it with no completed level
             Faccao aux = new Faccao("Visokea");
-            for (int i = 0; i < 10; i++)
-                aux.completedLevels[i] = false;
-            faccoes.Add(aux);
-            aux = new Faccao("Devoid");
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
                 aux.completedLevels[i] = false;
             faccoes.Add(aux);
             //aqui deverá ser adicionado à lista todas as faccoes;

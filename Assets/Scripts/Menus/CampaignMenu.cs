@@ -45,7 +45,7 @@ public class CampaignMenu : MonoBehaviour {
                 break;
             }
         bool hasFoundNextLevel = false;
-        for (int j = 0; j < 10; j++){
+        for (int j = 0; j < 5; j++){
             if (CampaignControl.faccoes[CampaignControl.actualFactionIndex].completedLevels[j] == true)
                 buttons[j].gameObject.SetActive(true);
             else if (!hasFoundNextLevel){
