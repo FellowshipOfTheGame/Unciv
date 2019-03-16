@@ -13,8 +13,12 @@ public class CampaignControl : MonoBehaviour {
     public static int actualLevel;
     public static int actualFactionIndex;
     public static List<Faccao> faccoes = new List<Faccao>();
+    public static bool[] playedLevelsSkirmish = new bool[5];
+    public static bool isSkirmish;
     public List<GameObject> storyIntro = new List<GameObject>();
     public List<GameObject> storyOutro = new List<GameObject>();
+    public GameObject Victory;
+    public GameObject Defeat;
 
     // Use this for initialization
     void Start () {
@@ -22,16 +26,57 @@ public class CampaignControl : MonoBehaviour {
         //Create the directory to player maps
         if (!Directory.Exists(Path.Combine(Application.persistentDataPath, "PlayerMaps")))
             Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, "PlayerMaps"));
-        // activates the story intro
-        storyIntro[actualLevel].SetActive(true);
+        // activates the story intro if is not skirmish mode
+        if (!isSkirmish)
+            storyIntro[actualLevel].SetActive(true);
         //loads the path to the actualFaction and actuallevel
         SLM.Load(Path.Combine(Application.dataPath, Path.Combine("Maps", Path.Combine(actualFaction, actualLevel.ToString() + ".map"))));
     }
-    //activates the story outro
-    public bool ActiveOutro(){
-        Debug.Log(actualLevel);
+    //activates the story outro if the player won
+    public bool VictoryOutro(){
+        if (isSkirmish == true){
+            Victory.SetActive(true);
+            return false;
+        }
         storyOutro[actualLevel].SetActive(true);
         return true;
+    }
+
+    public bool DeafeatOutro (){
+        Defeat.SetActive(true);
+        return true;
+    }
+
+    public static void StartSkirmish()
+    {
+        isSkirmish = true;
+        for (int i = 0; i < playedLevelsSkirmish.Length; i++)
+            playedLevelsSkirmish[i] = false;
+        actualFaction = "Skirmish";
+        actualLevel = (int)(UnityEngine.Random.value * 4f);
+        playedLevelsSkirmish[actualLevel] = true;
+        SceneManager.LoadScene(1);
+        return;
+    }
+
+    public void ContinueSkirmish()
+    {
+        for (int i = 0; i < playedLevelsSkirmish.Length; i++)
+        {
+            if (!playedLevelsSkirmish[i])
+                continue;
+            else if (i == playedLevelsSkirmish.Length - 1)
+            {
+                StartSkirmish();
+                return;
+            }
+        }
+
+        while (playedLevelsSkirmish[actualLevel])
+            actualLevel = (int)(UnityEngine.Random.value * 4f);
+        playedLevelsSkirmish[actualLevel] = true;
+        SceneManager.LoadScene(1);
+        return;
     }
 
     public bool NextLevel (){
@@ -49,6 +94,11 @@ public class CampaignControl : MonoBehaviour {
         }
         else
             return false;
+    }
+
+    public void RetryLevel(){
+        SceneManager.LoadScene(1);
+        return;
     }
 
     public static int FindLastLevel (){

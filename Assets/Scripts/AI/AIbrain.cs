@@ -14,7 +14,7 @@ public class AIbrain : MonoBehaviour {
     public void Activate() {
         if(Units.Count<=0 && grid.Forts.Count<=0) { 
             //Game Over Player Won!
-            campaignControl.ActiveOutro();
+            campaignControl.VictoryOutro();
             return;
         }
 

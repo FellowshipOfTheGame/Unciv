@@ -17,6 +17,7 @@ public class CampaignMenu : MonoBehaviour {
 
     public void SetFaction(string faction)
     {
+        CampaignControl.isSkirmish = false;
         CampaignControl.actualFaction = faction;
     }
 
@@ -35,6 +36,11 @@ public class CampaignMenu : MonoBehaviour {
     {
         SetLevel(CampaignControl.FindLastLevel());
         SceneManager.LoadScene(1);
+    }
+
+    public void StartSkirmish()
+    {
+        CampaignControl.StartSkirmish();
     }
 
     public void LevelSelectionControl()

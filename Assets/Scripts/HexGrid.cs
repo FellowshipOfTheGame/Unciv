@@ -536,8 +536,7 @@ public class HexGrid : MonoBehaviour {
 					neighbor.SearchPhase = searchFrontierPhase;
 					neighbor.Distance = distance;
 					neighbor.PathFrom = current;
-					neighbor.SearchHeuristic =
-						neighbor.coordinates.DistanceTo(toCell.coordinates);
+					neighbor.SearchHeuristic = neighbor.coordinates.DistanceTo(toCell.coordinates);
 					searchFrontier.Enqueue(neighbor);
 				}
 				else if (distance < neighbor.Distance) {

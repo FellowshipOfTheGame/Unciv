@@ -9,8 +9,7 @@ public class Player : MonoBehaviour {
     private string Resources;
     public string Faccao;
     public HexGrid grid;
-    public Canvas Lose;
-    public SaveLoadMenu SLM;
+    public CampaignControl campaignControl;
 
     public Text Res;
 
@@ -22,8 +21,8 @@ public class Player : MonoBehaviour {
     private void Update() {
         Res.text = "Resources: " + Resources;
 
-        if(grid.cities.Count<=0)
-            Lose.gameObject.SetActive(true);
+        if (grid.cities.Count <= 0)
+            campaignControl.DeafeatOutro();
     }
 
     public void SetResources(string Bonus){ 
